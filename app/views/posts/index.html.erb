@@ -13,54 +13,9 @@
         <em>Didn't find any algorithms...</em>
         <br>
       <% end %>
-      <% @posts.each do |post| %>
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="media">
-                <div class="media-left">
-                  <% if signed_in? && current_user.id == post.user.id %>
-                    <a href="users/profile">
-                  <% else %>
-                   <a href="/users/<%= post.user.id %>">
-                  <% end %>
-                    <%= image_tag post.user.image.url(:medium), class: "media-object", id: "post-user-img", alt: "user image" %>
-                  </a>
-                </div>
-                <div class="media-body">
-                  <a href="/posts/<%= post.id %>" id="post-title"><%= post.title %></a>
-                  <p class="post-meta"><%= post.created_at.strftime("%B %d, %Y") %> by
-                  <%= link_to post.user.username, "#" %>
-                  </p>
-                </div>
-              </div>
-              <p>Description: <%= truncate(post.description, length: 150) %></p>
-              <a href="/posts?&amp;search=<%= post.category %>" class="tag">
-                <span class="label label-primary">#<%= post.category %></span>
-              </a>
-              <a href="/posts?&amp;search=<%= post.difficulty %>" class="tag">
-                <span class="label label-primary">#<%= post.difficulty %></span>
-              </a>
 
-              <% @likes = post.likes.includes(:user).limit(15)
-                @array = Array.new
-              %>
+      <%= render 'posts' %>
 
-              <% @likes.each do |like|
-                @array.push(like.user.username)
-               end
-              %>
-
-              <span class="label label-default" data-toggle="tooltip" data-placement="top" title="<%= @array.to_sentence_more(5, "others") %>">
-                Likes <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <%= post.likes.count %>
-              </span>
-              <a href="/posts/<%= post.id %>/#comments">
-                <span class="label label-default">
-                  Comments <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> <%= post.comments.count %>
-                </span>
-              </a>
-            </div>
-          </div>
-      <% end %>
     </div>
   </div>
 

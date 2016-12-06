@@ -1,0 +1,40 @@
+<% @posts.each do |post| %>
+    <div class="card-box">
+      <div class="media">
+        <div class="media-left">
+          <%= link_to(user_path(post.user)) do %>
+            <%= image_tag post.user.image.url(:medium), class: "media-object", id: "post-user-img", alt: "user image" %>
+          <% end %>
+        </div>
+        <div class="media-body">
+          <h3><%= link_to post.title, post, class: "post-title" %></h3>
+          <p class="post-meta"><%= post.created_at.strftime("%B %d, %Y") %> by <%= link_to post.user.username, user_path(post.user) %></p>
+        </div>
+      </div>
+
+      <a href="/posts?&amp;search=<%= post.category %>" class="tag">
+        <span class="label label-primary">#<%= post.category %></span>
+      </a>
+      <a href="/posts?&amp;search=<%= post.difficulty %>" class="tag">
+        <span class="label label-primary">#<%= post.difficulty %></span>
+      </a>
+
+      <% @likes = post.likes.includes(:user).limit(15)
+        @array = Array.new
+      %>
+
+      <% @likes.each do |like|
+        @array.push(like.user.username)
+       end
+      %>
+
+      <span class="label label-default" data-toggle="tooltip" data-placement="top" title="<%= @array.to_sentence_more(5, "others") %>">
+        Likes <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <%= post.likes.count %>
+      </span>
+      <a href="/posts/<%= post.id %>/#comments">
+        <span class="label label-default">
+          Comments <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> <%= post.comments.count %>
+        </span>
+      </a>
+    </div>
+<% end %>
