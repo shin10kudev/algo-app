@@ -1,0 +1,30 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-primary">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">You have <%= @followers.length %> Followers</h3>
+		  </div>
+		  <div class="panel-body">
+				<% if @followers.length == 0 %>
+					<h5>Looks like you don't have any followers yet...</h5>
+				<% else %>
+					<div class="list-group">
+						<% @followers.each do |follower| %>
+						  <div class="list-group-item">
+								<%= link_to(users_path(follower.id)) do %>
+                	<%= image_tag follower.image.url(:small), class: "img-cirle", id: "navbar-pic", alt: "user image" %>
+								<% end %>
+		    				<em><%= follower.username %></em>
+								<div class="pull-right">
+               		<% if current_user.friendships.where(friend_id: follower.id).empty? %>
+                  	<%= link_to "Follow", friendships_path(friend_id: follower.id), method: :post, class: "btn btn-info btn-sm" %>
+                  <% end %>
+                </div>
+		    			</div>
+						<% end %>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

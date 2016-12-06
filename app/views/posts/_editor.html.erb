@@ -1,0 +1,57 @@
+<div class="row">
+	<div class="col-md-12">
+		<div id="container">
+			<div id="editor"><%= @post.code %></div>
+			<script>
+			  var editor = ace.edit("editor");
+			  var code = editor.getSession().getValue();
+			  editor.setTheme("ace/theme/monokai");
+			  editor.getSession().setMode("ace/mode/javascript");
+			  editor.getSession().setTabSize(2);
+			  editor.setHighlightActiveLine(false);
+			  editor.setShowPrintMargin(false);
+			  editor.getSession().setUseWrapMode(true);
+
+				editor.getSession().on('change', function(e) {
+	    		code = editor.getSession().getValue();
+				});
+
+				$(document).ready(function() {
+					$('#run-btn').click(function() {
+						$('#console').fadeIn('slow');
+						var input = code;
+			    	var logger = document.getElementById('console');
+				    console.log = function (message) {
+				      if (typeof message == 'object') {
+				        logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + "</br>";
+				      } else {
+				        logger.innerHTML += message + "</br>";
+				      }
+				    }
+			   		eval(input);
+				  });
+
+				  window.onerror = function (errorMsg, url, lineNumber) {
+				    var logger = document.getElementById('console');
+				    $('#console').append("<p class='danger'><span class='glyphicon glyphicon-remove-circle' aria-hidden='true'></span><span class='danger'> " + errorMsg + " on line " + lineNumber+ "</p>");
+				  };
+
+				  $('#clear-btn').click(function() {
+				  	$('#console').empty();
+				  });
+				});
+			</script>
+		</div>
+	</div>
+</div>
+
+<div id="console-ctrl">
+	<div class="col-left">
+		<button class="btn btn-primary btn-block" id="run-btn">Run in Console</button>	
+	</div>
+	<div class="col-right">
+		<button class="btn btn-primary btn-block" id="clear-btn">Clear</button>
+	</div>
+</div>
+
+<div class="form-control" id="console">Algorithm Output:<br></div>

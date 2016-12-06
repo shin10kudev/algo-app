@@ -1,0 +1,73 @@
+<%= render 'modal' %>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="media">
+		  <div class="media-left">
+		    <%= image_tag current_user.image.url(:small), class: "media-object img-circle", alt: "user image" %>
+		  </div>
+		  <div class="media-body">
+		    <h4 class="media-heading">
+		    	<%= current_user.username %>
+		    </h4>
+				<p>Followers: <%= current_user.inverse_friendships.count %></p>
+		    <p>Member since: <%= current_user.created_at.strftime("%B %d, %Y") %></p>
+		    <%= link_to "Change Profile Picture", "#" %>
+		  </div>
+		</div>
+
+		<br>
+
+		<div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">My Algorithms</h3>
+      </div>
+      <div class="panel-body">
+				<% if current_user.posts.length == 0 %>
+					<h5>Looks like you haven't uploaded any Algorithms yet...</h5>
+					<%= link_to "Post your first algorithm!", new_post_path, class: "btn btn-info" %>
+				<% else %>
+					<table class="table table-hover table-condensed">
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th>Description (preview)</th>
+								<th>Likes</th>
+								<th>Posted On</th>
+								<th>Delete</th>
+								<th>Update</th>
+							</tr>
+						</thead>
+						<tbody>
+						<% current_user.posts.each do |post| %>
+							<tr>
+								<td><a href="/posts/<%= post.id %>"><%= post.title %></a></td>
+								<td><%= truncate(post.description, length: 80) %></td>
+								<td><%= post.likes.count %></td>
+								<td><%= post.created_at.strftime("%B %d, %Y") %></td>
+								<td>
+									<button data-id="<%= post.id %>" data-title="<%= post.title %>" data-toggle="modal" data-target="#confirm-destroy" class="btn btn-danger btn-xs post-data">Delete</button>
+								</td>
+								<td>
+									<a href="/posts/<%= post.id %>/edit" class="btn btn-info btn-xs">Edit</a>
+								</td>
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+				<% end %>
+			</div>
+    </div>
+	</div>
+</div>
+
+<script>
+	$(document).on('ready page:load', function () {
+		$('.post-data').on('click', function() {
+			var id = $(this).attr('data-id');
+			var title = $(this).attr('data-title');
+			$('#destroy').attr('href', '/posts/'+id);
+			$('h4.modal-title').html('Delete '+title+'?');
+		});
+	});
+</script>

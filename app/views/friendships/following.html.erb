@@ -1,0 +1,32 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-primary">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">People you are Following</h3>
+		  </div>
+		  <div class="panel-body">
+				<% if @friends.length == 0 %>
+					<h5>Looks like you haven't followed any users yet... Why not explore the site and find some people to follow?</h5>
+				<% else %>
+					<div class="list-group">
+						<% @friends.each do |friend| %>
+						  <div class="list-group-item">
+								<%= link_to(users_path(follower.id)) do %>
+                  <%= image_tag friend.image.url(:small), class: "img-circle", id: "navbar-pic", alt: "user image" %>
+                <% end %>
+		    				<em><%= friend.username %></em>
+		    				<div class="pull-right">
+                	<form action="/friendships/<%= friend.id %>" method="POST">
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="submit" value="Unfollow" class="btn btn-info btn-sm" data-disable-with="Processing..">
+                  </form>
+                </div>
+		    			</div>
+						<% end %>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

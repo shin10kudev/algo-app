@@ -1,0 +1,19 @@
+TODO: AlgoApp
+
+!important!
+-password recovery options
+-pagination (max 10 posts per page + pagination)
+-proper tagging abilities (multiple tags: use comma separated version)
+-add admin roles, with superuser privledges
+
+!medium!
+-text-edit area should automatically grow to height of content
+-create "404 not found" page
+-contact page
+-add markdown capability to posts
+-add adjax calls for adding comments and liking posts
+
+!desired!
+-"language" tag to posting (e.g. "JavaScript")
+-redesign show page for posts
+-ability to search for users

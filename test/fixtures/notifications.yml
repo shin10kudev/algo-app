@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  message: MyString
+  originator_id: 1
+  reference_id: 1
+  viewed: false
+
+two:
+  user_id: 
+  message: MyString
+  originator_id: 1
+  reference_id: 1
+  viewed: false

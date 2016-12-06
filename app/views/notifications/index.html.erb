@@ -1,0 +1,37 @@
+<div class="col-md-12">
+	<h1>Notification History</h1>
+
+	<% if @notes.length < 1 %>
+		<p>You don't have any notifications currently...</p>
+	<% else %>
+		<ul class="list-group">
+			<% @notes.each do |note| %>
+		  	<% @user = User.find(note.originator_id) %>
+		  	<% if note.viewed == false
+            @class = "unchecked"
+          else
+            @class = "checked"
+          end
+        %>
+			  <li class="list-group-item <%= @class %>">
+					<a href="/<%= note.path %>">
+            <%= image_tag @user.image.url(:medium), class: "img-circle img-xs", alt: "user image" %>
+					  <b><%= @user.username %></b> <%= note.action %> <i><%= time_ago_in_words(note.created_at) %> ago. </i>
+					</a>
+					<form action="/notifications/<%= note.id %>" method="POST" class="notifications-inline">
+	          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	          <input type="hidden" name="note[id]" value="<%= note.id %>" >
+	          <input type="hidden" name="_method" value="delete">
+	          <button class="btn btn-link" data-disable-with="Processing">Delete</button>
+	        </form>
+          <form action="/notifications/<%= note.id %>" method="POST" class="notifications-inline">
+	          <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	          <input type="hidden" name="_method" value="put">
+	          <button type="submit" class="btn btn-link" data-toggle="tooltip" data-placement="top" title="Mark as read">Mark as Read</button>
+        </form>
+			  </li>
+			<% end %>
+		</ul>
+	<% end %>
+
+</div>

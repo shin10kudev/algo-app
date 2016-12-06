@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="Algorithm Practice">
+	<meta name="author" content="Elliott Hindman">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlgoApp</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/monokai_sublime.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag %>
+</head>
+<body>
+	<%- if params[:controller] == 'posts_controller' and params[:action] == 'new' %>
+	  <body data-no-turbolink="true">
+	<%- else %>
+	  <body data-no-turbolink="false">
+	<%- end %>
+
+	<% if notice %>
+		<p class="notice alert_box"><%= notice %></p>
+	<% end %>
+	<% if alert %>
+		<p class="alert alert_box"><%= alert %></p>
+	<% end %>
+
+	<%= render 'layouts/common/navbar' %>
+
+	<div class="container">
+		<%= yield %>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<footer>
+					<ol class="breadcrumb">
+					  <li><a href="/posts">Home</a></li>
+					  <li><a href="/about">About</a></li>
+					  <li><a href="/contact">Contact</a></li>
+					</ol>
+				</footer>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

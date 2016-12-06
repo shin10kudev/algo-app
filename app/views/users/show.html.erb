@@ -1,0 +1,66 @@
+<% if signed_in? && @user.id != current_user.id && current_user.friendships.where(friend_id: @user.id).empty? %>
+  <div class="pull-right">
+    <%= link_to "Follow", friendships_path(friend_id: @user.id), method: :post, class: "btn btn-info btn-sm" %>
+  </div>
+  <% elsif signed_in? && @user.id != current_user.id %>
+  <div class="pull-right">
+    <form action="/friendships/<%= @user.id %>" method="POST">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="Following" class="btn btn-info btn-sm follow-btn" data-disable-with="Processing..">
+    </form>
+  </div>
+<% end %>
+
+<div class="media">
+  <div class="media-left">
+    <%= image_tag @user.image.url(:small), class: "media-object img-circle", alt: "user image" %>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading"><%= @user.username %>'s Profile</h4>
+    <p>Member since: <%= @user.created_at.strftime("%B %d, %Y") %></p>
+    <p>Followers: <%= @user.inverse_friendships.count %></p>
+  </div>
+</div>
+
+<h4><%= @user.username %>'s  Algorithms</h4>
+<% if @user.posts.empty? %>
+  <em>It looks like <%= @user.username %> hasn't posted any algorithms yet... Try checking back later.</em>
+<% else %>
+  <table class="table table-bordered">
+  	<thead>
+  		<tr>
+  			<th>Title</th>
+        <th>Description</th>
+  			<th>Likes</th>
+  			<th>Created On</th>
+  		</tr>
+  	</thead>
+  	<tbody>
+  	<% @user.posts.each do |post| %>
+  		<tr>
+  			<td><a href="/posts/<%= post.id %>"><%= post.title %></a></td>
+        <td><%= post.description %></td>
+  			<td><%= post.likes.count %></td>
+  			<td><%= post.created_at.to_formatted_s(:long_ordinal) %></td>
+  		</tr>
+  		<% end %>
+  	</tbody>
+  </table>
+<% end %>
+
+<script>
+  $(document).on('ready page:load', function () {
+    $('.follow-btn')
+      .mouseenter(function() {
+        $(this).removeClass('btn-primary');
+        $(this).addClass('btn-warning');
+        $(this).val('Unfollow');
+      })
+      .mouseleave(function() {
+        $(this).removeClass('btn-warning');
+        $(this).addClass('btn-primary');
+        $(this).val('Following');
+      });
+  });
+</script>
