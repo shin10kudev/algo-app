@@ -1,0 +1,33 @@
+// Code editor styles
+
+#container {
+  min-height: 400px;
+}
+
+#editor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-size: 14px;
+  margin: auto 15px;
+}
+
+#console {
+  display: none;
+  min-height: 200px;
+  border: 1px solid black;
+  overflow: auto;
+}
+
+.console-ctrl {
+  margin: 10px auto;
+  .btn-group {
+    width: 100%;
+  }
+
+  .btn {
+    width: 50%;
+  }
+}

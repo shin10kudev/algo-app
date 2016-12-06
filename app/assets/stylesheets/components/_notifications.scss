@@ -1,0 +1,13 @@
+// Notifications styles
+
+form.notifications-inline {
+  display: inline-block;
+}
+
+form.notifications-destroy > button:hover {
+  color: $red;
+}
+
+li.unchecked {
+  background-color: #EFF;
+}

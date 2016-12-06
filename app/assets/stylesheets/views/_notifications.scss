@@ -1,0 +1,23 @@
+// Notifications styles
+
+form.notifications-inline {
+  display: inline-block;
+}
+
+form.notifications-destroy > button:hover {
+  color: $red;
+}
+
+li.unchecked {
+  background-color: #EFF;
+}
+
+li.notifications {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+li.notifications:last-child {
+  border-bottom: none;
+  padding-top: 5px;
+  font-size: 15px;
+}

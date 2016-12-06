@@ -1,0 +1,24 @@
+// Alert styles
+
+p.notice, p.alert {
+  text-align: center;
+  padding: 3.2rem;
+  position: absolute;
+  width: 100%;
+  opacity: 0.95;
+  color: white;
+  font-weight: 700;
+  z-index: 9999;
+}
+
+p.notice {
+  background-color: $blue;
+}
+
+p.alert {
+  background-color: $warning-color;
+}
+
+p.danger {
+  color: $red;
+}

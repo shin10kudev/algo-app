@@ -7,10 +7,9 @@ class PostsController < ApplicationController
     @algorithms = Post.limit(5).order("RANDOM()")
     @tags = ["String", "Array", "Linked List", "Sort", "Recursive", "Stacks and Queues", "Binary Search"]
     if current_user
-      ids = [current_user.id, 4]
-      @users = User.where.not(id: ids).limit(5).order("RANDOM()")
+      @users = User.where.not(id: current_user.id).limit(5).order("RANDOM()")
     else
-      @users = User.where.not(id: 4).limit(5).order("RANDOM()")
+      @users = User.all.limit(5).order("RANDOM()")
     end
   end
 
@@ -59,7 +58,7 @@ class PostsController < ApplicationController
   array.push(str)
     end
     array.to_sentence(params)
-  end 
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

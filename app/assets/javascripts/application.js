@@ -21,7 +21,7 @@
 //= require ace/mode-javascript
 
 $(document).ready(function() {
-  
+
 	$('pre code').each(function(i, block) {
     hljs.highlightBlock(block);
   });
