@@ -11,7 +11,7 @@
 					<div class="list-group">
 						<% @followers.each do |follower| %>
 						  <div class="list-group-item">
-								<%= link_to(users_path(follower.id)) do %>
+								<%= link_to(users_path(follower)) do %>
                 	<%= image_tag follower.image.url(:small), class: "img-cirle", id: "navbar-pic", alt: "user image" %>
 								<% end %>
 		    				<em><%= follower.username %></em>

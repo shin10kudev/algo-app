@@ -4,6 +4,12 @@ body {
   background-color: $body-background-color;
 }
 
+// Sticky footer
+.page-content {
+  min-height: calc(100vh - 166px);
+}
+// End sticky footer
+
 .posts-header > h1 {
   margin-bottom: 25px;
 }

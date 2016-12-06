@@ -2,7 +2,7 @@
 	<div class="col-md-12">
 		<div class="panel panel-primary">
 		  <div class="panel-heading">
-		    <h3 class="panel-title">People you are Following</h3>
+		    <h3 class="panel-title">People you are following</h3>
 		  </div>
 		  <div class="panel-body">
 				<% if @friends.length == 0 %>
@@ -11,10 +11,8 @@
 					<div class="list-group">
 						<% @friends.each do |friend| %>
 						  <div class="list-group-item">
-								<%= link_to(users_path(follower.id)) do %>
-                  <%= image_tag friend.image.url(:small), class: "img-circle", id: "navbar-pic", alt: "user image" %>
-                <% end %>
-		    				<em><%= friend.username %></em>
+                <%= image_tag friend.image.url(:small), class: "img-circle", id: "navbar-pic", alt: "user image" %>
+                <%= link_to friend.username, user_path(friend) %>
 		    				<div class="pull-right">
                 	<form action="/friendships/<%= friend.id %>" method="POST">
                     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
