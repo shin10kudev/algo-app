@@ -1,14 +1,24 @@
-// Variable settings
+// Variable definitions
 
-// colors
+// Colors
 $white: #fefefe;
-$black: #000;
+$black: #555;
 
-$red: #cd5c5c;
-$blue: #5bc0de;
-$gray-primary: #EDEFF0;
+$light-gray: #f5f5f5;
+$medium-gray: #eee;
+$dark-gray: #bbb;
+
+$primary-color: #0288d1;
+$secondary-color: #999;
+$success-color: #81c784;
+$notice-color: #42a5f5;
+$warning-color: #ffb74d;
+$alert-color: #f44336;
+
+// Fonts
+$body-font-color: $black;
+$body-background-color: $light-gray;
 
 // Globals
-$body-background-color: $gray-primary;
-
-$warning-color: $red;
+$global-font-family: "Roboto", "Helvetica Nue", Helvetica, Arial, sans-serif;
+$global-radius: 4px;

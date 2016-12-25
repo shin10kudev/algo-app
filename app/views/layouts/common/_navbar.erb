@@ -25,15 +25,15 @@
                 <%= current_user.username %>
               <% end %>
             </li>
-              <% @notes = current_user.notifications.limit(10).order(created_at: "DESC")
-                 @count = @notes.where(viewed: false).count
+              <% @notifications = current_user.notifications.limit(10).order(created_at: "DESC")
+                 @count = @notifications.where(viewed: false).count
               %>
             <li class="dropdown">
              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-envelope" aria-hidden="true"><% if @count > 0 %><span class="badge"><%= @count %></span><% end %></span></a>
               <ul class="dropdown-menu" role="menu">
-                <% @notes.each do |note| %>
-                <% @user = User.find(note.originator_id) %>
-                <% if note.viewed == false
+                <% @notifications.each do |notification| %>
+                <% @user = User.find(notification.originator_id) %>
+                <% if notification.viewed == false
                     @class = "unchecked"
                   else
                     @class = "checked"
@@ -41,7 +41,7 @@
                 %>
                 <li class="notifications <%= @class %>">
                   <div class="pull-right">
-                    <form action="/notifications/<%= note.id %>" method="POST">
+                    <form action="/notifications/<%= notification.id %>" method="POST">
                       <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
                       <input type="hidden" name="_method" value="put">
                       <button type="submit" class="btn btn-link" data-toggle="tooltip" data-placement="top" title="Mark as read">
@@ -49,9 +49,9 @@
                       </button>
                     </form>
                   </div>
-                  <a href="/<%= note.path %>">
+                  <a href="/<%= notification.path %>">
                     <%= image_tag @user.image.url(:medium), class: "img-circle img-xs", alt: "user image" %>
-                    <b><%= @user.username %></b> <%= note.action %> <i><%= time_ago_in_words(note.created_at) %> ago. </i>
+                    <b><%= @user.username %></b> <%= notification.action %> <i><%= time_ago_in_words(notification.created_at) %> ago. </i>
                   </a>
                 </li>
                 <% end %>

@@ -44,8 +44,8 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to(:back)
     flash[:notice] = "Your algorithm was deleted!"
+    redirect_to user_path(current_user)
   end
 
   # custom to-sentence method

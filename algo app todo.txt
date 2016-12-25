@@ -1,9 +1,9 @@
 TODO: AlgoApp
 
 !important!
--password recovery options
 -pagination (max 10 posts per page + pagination)
 -proper tagging abilities (multiple tags: use comma separated version)
+-password recovery options
 -add admin roles, with superuser privledges
 
 !medium!

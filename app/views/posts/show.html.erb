@@ -2,11 +2,11 @@
   <div class="col-md-12">
     <% if signed_in? && @post.user_id != current_user.id && current_user.likes.where(post_id: @post.id).empty? %>
       <div class="pull-right">
-        <form action="/likes" method="POST">
+        <form action="/users/<% current_user.id %>/likes" method="POST">
           <input type="hidden" name="like[post_id]" value="<%= @post.id %>" >
           <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
           <button class="btn btn-info" data-disable-with="Like">
-             Like <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+            Like <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
           </button>
         </form>
       </div>
@@ -22,13 +22,14 @@
         </form>
       </div>
     <% end %>
-    <% if signed_in? && @post.user_id == current_user.id %>
+
+    <% if has_permissions(@post.user_id) %>
       <div class="pull-right">
-        <a href="/posts/<%= @post.id %>/edit" class="btn btn-info">
-            Edit Post
-        </a>
+        <%= link_to "Edit Post", edit_post_path, class: "btn btn-info" %>
+        <%= link_to "Delete", @post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
       </div>
     <% end %>
+
     <h1><%= @post.title %></h1>
 
     <span data-toggle="modal" data-target="#likesModal" class="label label-default" id="likes-modal">
