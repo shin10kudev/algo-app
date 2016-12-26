@@ -4,8 +4,11 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.search(params[:search])
+
     @algorithms = Post.limit(5).order("RANDOM()")
+
     @tags = ["String", "Array", "Linked List", "Sort", "Recursive", "Stacks and Queues", "Binary Search"]
+
     if current_user
       @users = User.where.not(id: current_user.id).limit(5).order("RANDOM()")
     else
@@ -46,18 +49,6 @@ class PostsController < ApplicationController
     @post.destroy
     flash[:notice] = "Your algorithm was deleted!"
     redirect_to user_path(current_user)
-  end
-
-  # custom to-sentence method
-  # via http://www.rahuljiresal.com/2014/02/a-better-to_sentence-in-rails/
-  Array.send(:define_method, "to_sentence_more") do | n, morestring, params={} |
-    array = self.take(n)
-    remaining = self.drop(n)
-    if (remaining.count > 0)
-  str = remaining.count.to_s + " " + morestring
-  array.push(str)
-    end
-    array.to_sentence(params)
   end
 
   private
