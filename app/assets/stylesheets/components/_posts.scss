@@ -1,16 +1,78 @@
 // Post styles
 
-.card-box {
+.code-snippet-wrapper {
+  border: 0;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.read-more-link-wrapper {
+  text-align: center;
+  background: #f9f9f9;
+  padding: 5px 5px 6px;
+  border: 1px solid #bbb;
+  font-size: 16px;
+  margin-top: -30px;
+  z-index: 500;
+  position: relative;
+}
+
+.post-wrapper {
   background-color: $white;
   box-shadow: 0 1px 4px rgba(0,0,0,.04);
   border: 1px solid rgba(0,0,0,.09);
-
   border-radius: 5px 5px 4px 4px;
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: 1px 20px;
+  margin-bottom: 10px;
 
-  .user-image {
-    height: 50px;
-    margin-left: 3px;
+  .post-wrapper-inner {
+    padding-top: 10px;
+    padding-bottom: 15px;
+  }
+
+  .post-author-info {
+    @extend .media;
+    margin-bottom: 5px;
+
+    .user-image {
+      height: 46px;
+      margin-left: 3px;
+    }
+  }
+
+  .post-content {
+    margin-bottom: 10px;
+
+    .post-title,
+    .post-description {
+      a {
+        color: $global-font-color;
+        text-decoration: none;
+      }
+    }
+
+    .post-title {
+      font-weight: 600;
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .post-description {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .post-footer {
+    font-size: 16px;
+  }
+}
+
+.mid-dot-divider {
+  padding-left: 6px;
+  padding-right: 6px;
+
+  &::after {
+    content: "·";
   }
 }

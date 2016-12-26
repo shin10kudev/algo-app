@@ -15,39 +15,44 @@
     <%= f.label :title %><br>
     <%= f.text_field :title, class: "form-control" %>
   </div>
-    <div class="form-group">
-      <label for="code">Your Code:</label>
-      <div id="editor-post" style="height: 250px"><%= @post.code %></div>
-      <input type="hidden" name="post[code]" id="codearea" value="">
-      <script>
-        var editor = ace.edit("editor-post");
-        var code = editor.getSession().getValue();
-        editor.setTheme("ace/theme/monokai");
-        editor.getSession().setMode("ace/mode/javascript");
-        editor.getSession().setTabSize(2);
-        editor.setHighlightActiveLine(false);
-        editor.setShowPrintMargin(false);
-        editor.getSession().setUseWrapMode(true);
 
-        editor.getSession().on('change', function(e) {
-          code = editor.getSession().getValue();
-        });
+  <div class="form-group">
+    <label for="code">Your Code:</label>
+    <div id="editor-post" style="height: 250px"><%= @post.code %></div>
+    <input type="hidden" name="post[code]" id="codearea" value="">
+    <script>
+      var editor = ace.edit("editor-post");
+      var code = editor.getSession().getValue();
 
-        $(document).ready(function() {
-          $('#post-button').click(function() {
-              $('#codearea').val(code);
-            });
+      editor.setTheme("ace/theme/monokai");
+      editor.getSession().setMode("ace/mode/javascript");
+      editor.getSession().setTabSize(2);
+      editor.setHighlightActiveLine(false);
+      editor.setShowPrintMargin(false);
+      editor.getSession().setUseWrapMode(true);
+
+      editor.getSession().on('change', function(e) {
+        code = editor.getSession().getValue();
+      });
+
+      $(document).ready(function() {
+        $('#post-button').click(function() {
+          $('#codearea').val(code);
         });
-      </script>
-    </div>
+      });
+    </script>
+  </div>
+
   <div class="field form-group">
     <%= f.label :description %><br>
     <%= f.text_area :description, class: "form-control" %>
   </div>
+
   <div class="field form-group">
     <%= f.label :difficulty %><br>
     <%= f.select(:difficulty, [['Easy','easy'],['Medium','medium'],['Hard','hard']], {}, { class: "form-control" }) %>
   </div>
+
   <div class="field form-group">
     <%= f.label :category %><br>
     <%= f.select(:category, [['String','string'],['Array','array'],['Sort','sort'],['Linked list','linked list']], {}, { class: "form-control" }) %>

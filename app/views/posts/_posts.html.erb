@@ -1,31 +1,53 @@
 <% @posts.each do |post| %>
-  <div class="card-box">
-    <div class="media">
-      <div class="media-left">
-        <%= link_to(user_path(post.user)) do %>
-          <%= image_tag post.user.image.url(:medium), class: "media-object user-image img-circle", alt: "user image" %>
-        <% end %>
+
+  <div class="post-wrapper">
+    <div class="post-wrapper-inner">
+
+      <!-- USER INFO -->
+      <div class="post-author-info">
+        <div class="media-left">
+          <%= link_to(user_path(post.user)) do %>
+            <%= image_tag post.user.image.url(:medium), class: "media-object user-image img-circle", alt: "user image" %>
+          <% end %>
+        </div>
+        <div class="media-body">
+          <%= link_to post.user.username, user_path(post.user) %>
+          <p class="post-meta"><%= post.created_at.strftime("%b %d, %Y") %></p>
+        </div>
       </div>
-      <div class="media-body">
-        <h3><%= link_to post.title, post, class: "post-title" %></h3>
-        <p class="post-meta"><%= post.created_at.strftime("%B %d, %Y") %> by <%= link_to post.user.username, user_path(post.user) %></p>
+
+      <!-- POST CONTENT -->
+      <section class="post-content">
+        <h3 class="post-title"><%= link_to post.title, post %></h3>
+        <p class="post-description"><%= link_to post.description, post %></p>
+        <%= link_to(post, class: "no-underline") do %>
+        <pre class="code-snippet-wrapper"><code class="code-snippet-content js"><%= truncate(post.code, length: 250) %></code></pre>
+        <% end %>
+        <% if post.code.length > 100 %>
+          <div class="read-more-link-wrapper">
+            <%= link_to 'View full code snippet', post %>
+          </div>
+        <% end %>
+      </section>
+
+      <!-- FOOTER SECTION -->
+      <div class="post-footer clearfix">
+        <div class="pull-left">
+          <a href="/posts?&amp;search=<%= post.category %>" class="label label-primary">#<%= post.category %></a>
+          <a href="/posts?&amp;search=<%= post.difficulty %>" class="label label-primary">#<%= post.difficulty %></a>
+        </div>
+        <div class="pull-right">
+          <span class="likes-count"><%= pluralize(post.likes.count, 'likes') %></span><span class="mid-dot-divider"></span><a href="/posts/<%= post.id %>/#comments"><%= pluralize(post.comments.count, 'response') %></a>
+        </div>
       </div>
     </div>
-
-    <a href="/posts?&amp;search=<%= post.category %>" class="tag">
-      <span class="label label-primary">#<%= post.category %></span>
-    </a>
-    <a href="/posts?&amp;search=<%= post.difficulty %>" class="tag">
-      <span class="label label-primary">#<%= post.difficulty %></span>
-    </a>
-
-    <span class="label label-default">
-      <%= post.likes.count %> <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-    </span>
-    <a href="/posts/<%= post.id %>/#comments">
-      <span class="label label-default">
-        <%= post.comments.count %> <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
-      </span>
-    </a>
   </div>
 <% end %>
+
+<script>
+  $(document).ready(function() {
+    $('.code-snippet-content').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>

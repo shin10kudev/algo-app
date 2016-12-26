@@ -20,11 +20,6 @@
 //= require ace/mode-javascript
 
 $(document).ready(function() {
-
-	$('pre code').each(function(i, block) {
-    hljs.highlightBlock(block);
-  });
-
 	setTimeout(function() {
 		$('.alert-box').slideUp('slow', function() {
 			$(this).remove();
