@@ -27,8 +27,8 @@ $(document).ready(function() {
   });
 
 	setTimeout(function() {
-		$('.alert_box').slideUp('slow', function() {
-			$('this').remove();
+		$('.alert-box').slideUp('slow', function() {
+			$(this).remove();
 		})
-	}, 2000);
+	}, 3000);
 });
