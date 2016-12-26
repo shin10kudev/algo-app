@@ -4,6 +4,10 @@ body {
   background-color: $body-background-color;
 }
 
+.site-wrapper {
+  padding: 40px 0;
+}
+
 // Sticky footer
 .page-content {
   min-height: calc(100vh - 166px);
