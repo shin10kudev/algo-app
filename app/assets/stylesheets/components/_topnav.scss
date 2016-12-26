@@ -1,14 +1,18 @@
 // Top navigation styles
 
+.navbar {
+  margin-bottom: 0;
+
+  .glyphicon {
+    font-size: 14px;
+  }
+}
+
 .user-link {
   padding: 13px 15px !important;
-}
 
-.navbar-pic {
-  width: 24px;
-  margin-right: 10px;
-}
-
-#nav-glyph {
-  font-size: 14px;
+  .navbar-pic {
+    width: 24px;
+    margin-right: 10px;
+  }
 }
