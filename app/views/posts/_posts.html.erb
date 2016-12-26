@@ -3,7 +3,7 @@
     <div class="media">
       <div class="media-left">
         <%= link_to(user_path(post.user)) do %>
-          <%= image_tag post.user.image.url(:medium), class: "media-object", id: "post-user-img", alt: "user image" %>
+          <%= image_tag post.user.image.url(:medium), class: "media-object user-image img-circle", alt: "user image" %>
         <% end %>
       </div>
       <div class="media-body">
@@ -18,15 +18,6 @@
     <a href="/posts?&amp;search=<%= post.difficulty %>" class="tag">
       <span class="label label-primary">#<%= post.difficulty %></span>
     </a>
-
-    <% @likes = post.likes.includes(:user).limit(15)
-      @array = Array.new
-    %>
-
-    <% @likes.each do |like|
-      @array.push(like.user.username)
-     end
-    %>
 
     <span class="label label-default">
       <%= post.likes.count %> <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>

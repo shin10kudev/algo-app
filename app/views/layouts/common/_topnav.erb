@@ -18,7 +18,7 @@
         <% if user_signed_in? %>
           <li>
             <%= link_to(user_path(current_user), class: "user-link") do %>
-              <%= image_tag current_user.image.url(:medium), class: "navbar-pic img-circle", alt: "user image" %>
+              <%= image_tag current_user.image.url(:medium), class: "user-image img-circle", alt: "user image" %>
               <%= current_user.username %>
             <% end %>
           </li>

@@ -5,9 +5,8 @@ class PostsController < ApplicationController
   def index
     @posts = Post.search(params[:search])
 
-    @algorithms = Post.limit(5).order("RANDOM()")
-
     @tags = ["String", "Array", "Linked List", "Sort", "Recursive", "Stacks and Queues", "Binary Search"]
+    @algorithms = Post.limit(5).order("RANDOM()")
 
     if current_user
       @users = User.where.not(id: current_user.id).limit(5).order("RANDOM()")

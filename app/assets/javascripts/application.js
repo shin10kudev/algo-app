@@ -13,7 +13,6 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
 //= require ace/ace
 //= require ace/worker-html
@@ -30,5 +29,5 @@ $(document).ready(function() {
 		$('.alert-box').slideUp('slow', function() {
 			$(this).remove();
 		})
-	}, 3000);
+	}, 2000);
 });

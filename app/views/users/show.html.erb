@@ -25,7 +25,7 @@
 
 <h4><%= @user.username %>'s  Algorithms</h4>
 <% if @user.posts.empty? %>
-  <em>It looks like <%= @user.username %> hasn't posted any algorithms yet... Try checking back later.</em>
+  <em><%= empty_state_text(@user) %></em>
 <% else %>
   <table class="table table-bordered">
   	<thead>
@@ -34,6 +34,9 @@
         <th>Description</th>
   			<th>Likes</th>
   			<th>Created On</th>
+        <% if has_permissions(@user.id) %>
+          <th>Actions</th>
+        <% end %>
   		</tr>
   	</thead>
   	<tbody>
@@ -43,14 +46,21 @@
         <td><%= post.description %></td>
   			<td><%= post.likes.count %></td>
   			<td><%= post.created_at.to_formatted_s(:long_ordinal) %></td>
+        <% if has_permissions(post.user_id) %>
+        <td>
+          <button data-confirm-modal data-id="<%= post.id %>" data-title="<%= post.title %>" data-toggle="modal" data-target="#confirm-destroy-modal" class="btn btn-danger btn-xs">Delete</button>
+        </td>
+        <% end %>
   		</tr>
   		<% end %>
   	</tbody>
   </table>
 <% end %>
 
+<%= render 'remove_post_confirmation_modal' %>
+
 <script>
-  $(document).on('ready page:load', function () {
+  $(document).on('ready', function () {
     $('.follow-btn')
       .mouseenter(function() {
         $(this).removeClass('btn-primary');
@@ -62,5 +72,17 @@
         $(this).addClass('btn-primary');
         $(this).val('Following');
       });
+  });
+</script>
+
+<script>
+  $(document).on('ready', function () {
+    $("[data-confirm-modal]").on('click', function() {
+      var postId = $(this).attr('data-id');
+      var title = $(this).attr('data-title');
+
+      $('#destroy-button').attr("href", "/posts/" + postId);
+      $('.modal-title').html("Delete " + title + "?");
+    });
   });
 </script>
