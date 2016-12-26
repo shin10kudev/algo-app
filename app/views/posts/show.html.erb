@@ -32,7 +32,7 @@
 
     <h1><%= @post.title %></h1>
 
-    <span data-toggle="modal" data-target="#likesModal" class="label label-default" id="likes-modal">
+    <span class="label label-default">
       Likes <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <%= @post.likes.count %>
     </span>
     <a href="#comments">
@@ -56,7 +56,8 @@
 <%= render 'editor' %>
 
 <div class="row">
-  <a name="comments"></a><div class="col-md-12">
+  <a name="comments"></a>
+  <div class="col-md-12">
     <h3>Comments (<%= @comments.length %>)</h3>
     <% if @comments.length < 1 %>
       <i>Be the first to comment.</i>
@@ -97,8 +98,3 @@
     </form>
   </div>
 </div>
-<br>
-<br>
-<br>
-
-<%= render 'modal' %>

@@ -9,90 +9,86 @@
       </button>
       <a class="navbar-brand" href="/posts">AlgoApp</a>
       <%= form_tag posts_path, class: "navbar-form navbar-left", :method => :get do %>
-        <p>
-          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Find Algorithms.." %>
-          <%= submit_tag "Search", class: "btn btn-default", :name => nil %>
-        </p>
+        <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Find Algorithms.." %>
+        <%= submit_tag "Search", class: "btn btn-default", :name => nil %>
       <% end %>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <%= link_to(user_path(current_user)) do %>
-                <%= image_tag current_user.image.url(:medium), class: "img-circle", id: "navbar-pic", alt: "user image" %>
-                <%= current_user.username %>
-              <% end %>
-            </li>
-              <% @notifications = current_user.notifications.limit(10).order(created_at: "DESC")
-                 @count = @notifications.where(viewed: false).count
+          <li>
+            <%= link_to(user_path(current_user), class: "user-link") do %>
+              <%= image_tag current_user.image.url(:medium), class: "navbar-pic img-circle", alt: "user image" %>
+              <%= current_user.username %>
+            <% end %>
+          </li>
+            <% @notifications = current_user.notifications.limit(10).order(created_at: "DESC")
+               @count = @notifications.where(viewed: false).count
+            %>
+          <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-envelope" aria-hidden="true"><% if @count > 0 %><span class="badge"><%= @count %></span><% end %></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <% @notifications.each do |notification| %>
+              <% @user = User.find(notification.originator_id) %>
+              <% if notification.viewed == false
+                  @class = "unchecked"
+                else
+                  @class = "checked"
+                end
               %>
-            <li class="dropdown">
-             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-envelope" aria-hidden="true"><% if @count > 0 %><span class="badge"><%= @count %></span><% end %></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <% @notifications.each do |notification| %>
-                <% @user = User.find(notification.originator_id) %>
-                <% if notification.viewed == false
-                    @class = "unchecked"
-                  else
-                    @class = "checked"
-                  end
-                %>
-                <li class="notifications <%= @class %>">
-                  <div class="pull-right">
-                    <form action="/notifications/<%= notification.id %>" method="POST">
-                      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-                      <input type="hidden" name="_method" value="put">
-                      <button type="submit" class="btn btn-link" data-toggle="tooltip" data-placement="top" title="Mark as read">
-                        <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
-                      </button>
-                    </form>
-                  </div>
-                  <a href="/<%= notification.path %>">
-                    <%= image_tag @user.image.url(:medium), class: "img-circle img-xs", alt: "user image" %>
-                    <b><%= @user.username %></b> <%= notification.action %> <i><%= time_ago_in_words(notification.created_at) %> ago. </i>
-                  </a>
-                </li>
+              <li class="notifications <%= @class %>">
+                <div class="pull-right">
+                  <form action="/notifications/<%= notification.id %>" method="POST">
+                    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+                    <input type="hidden" name="_method" value="put">
+                    <button type="submit" class="btn btn-link" data-toggle="tooltip" data-placement="top" title="Mark as read">
+                      <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                    </button>
+                  </form>
+                </div>
+                <a href="/<%= notification.path %>">
+                  <%= image_tag @user.image.url(:medium), class: "img-circle img-xs", alt: "user image" %>
+                  <b><%= @user.username %></b> <%= notification.action %> <i><%= time_ago_in_words(notification.created_at) %> ago. </i>
+                </a>
+              </li>
+              <% end %>
+              <li class="notifications">
+                <a href="/notifications" class="text-center">See All</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a href="/posts/new">
+                <span class="glyphicon glyphicon-pencil" id="nav-glyph" aria-hidden="true"></span> Post Algorithm</a>
+              </li>
+              <li>
+                <%= link_to(user_likes_path(current_user)) do %>
+                  <span class="glyphicon glyphicon-heart" id="nav-glyph" aria-hidden="true"></span> Likes (<%= current_user.likes.count %>)
                 <% end %>
-                <li class="notifications">
-                  <a href="/notifications" class="text-center">See All</a>
-                </li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li>
-                  <a href="/posts/new">
-                  <span class="glyphicon glyphicon-pencil" id="nav-glyph" aria-hidden="true"></span> Post Algorithm</a>
-                </li>
-                <li>
-                  <%= link_to(user_likes_path(current_user)) do %>
-                    <span class="glyphicon glyphicon-heart" id="nav-glyph" aria-hidden="true"></span> Likes (<%= current_user.likes.count %>)
-                  <% end %>
-                </li>
-                <li>
-                  <a href="/users/following">
-                  <%= link_to(user_following_path) do %>
-                    <span class="glyphicon glyphicon-plus" id="nav-glyph" aria-hidden="true"></span> Following (<%= current_user.friendships.count %>)
-                  <% end %>
-                </li>
-                <li>
-                  <%= link_to(user_followers_path) do %>
-                    <span class="glyphicon glyphicon-retweet" id="nav-glyph" aria-hidden="true"></span> Followers (<%= current_user.inverse_friendships.count %>)
-                  <% end %>
-                </li>
-                <li class="divider"></li>
-                <li>
-                  <%= link_to "Settings", edit_user_registration_path %>
-                </li>
-                <li>
-                  <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-                </li>
-              </ul>
-            </li>
-          </ul>
+              </li>
+              <li>
+                <a href="/users/following">
+                <%= link_to(user_following_path) do %>
+                  <span class="glyphicon glyphicon-plus" id="nav-glyph" aria-hidden="true"></span> Following (<%= current_user.friendships.count %>)
+                <% end %>
+              </li>
+              <li>
+                <%= link_to(user_followers_path) do %>
+                  <span class="glyphicon glyphicon-retweet" id="nav-glyph" aria-hidden="true"></span> Followers (<%= current_user.inverse_friendships.count %>)
+                <% end %>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to "Settings", edit_user_registration_path %>
+              </li>
+              <li>
+                <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+              </li>
+            </ul>
+          </li>
         <% else %>
           <li><%= link_to "Sign In", new_user_session_path %></li>
 	        <li><%= link_to "Sign Up", new_user_registration_path %></li>
