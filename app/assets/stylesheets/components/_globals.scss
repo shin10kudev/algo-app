@@ -2,6 +2,8 @@
 
 body {
   background-color: $body-background-color;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 .site-wrapper {

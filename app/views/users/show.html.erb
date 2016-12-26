@@ -1,16 +1,11 @@
+
+<!-- FOLLOWING -->
 <% if signed_in? && @user.id != current_user.id && current_user.friendships.where(friend_id: @user.id).empty? %>
-  <div class="pull-right">
-    <%= link_to "Follow", friendships_path(friend_id: @user.id), method: :post, class: "btn btn-info btn-sm" %>
-  </div>
-  <% elsif signed_in? && @user.id != current_user.id %>
-  <div class="pull-right">
-    <form action="/friendships/<%= @user.id %>" method="POST">
-      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-      <input type="hidden" name="_method" value="delete">
-      <input type="submit" value="Following" class="btn btn-info btn-sm follow-btn" data-disable-with="Processing..">
-    </form>
-  </div>
+  <%= link_to "Follow", friendships_path(friend_id: @user.id), method: :post, class: "btn btn-info btn-sm" %>
+<% elsif signed_in? && @user.id != current_user.id %>
+  <%= link_to "Unfollow", friendship_path, method: :delete, class: "btn btn-warning btn-sm" %>
 <% end %>
+<!-- END FOLLOWING -->
 
 <div class="media">
   <div class="media-left">
@@ -24,9 +19,11 @@
 </div>
 
 <h4><%= @user.username %>'s  Algorithms</h4>
+
 <% if @user.posts.empty? %>
   <em><%= empty_state_text(@user) %></em>
 <% else %>
+
   <table class="table table-bordered">
   	<thead>
   		<tr>
@@ -61,22 +58,7 @@
 
 <script>
   $(document).on('ready', function () {
-    $('.follow-btn')
-      .mouseenter(function() {
-        $(this).removeClass('btn-primary');
-        $(this).addClass('btn-warning');
-        $(this).val('Unfollow');
-      })
-      .mouseleave(function() {
-        $(this).removeClass('btn-warning');
-        $(this).addClass('btn-primary');
-        $(this).val('Following');
-      });
-  });
-</script>
-
-<script>
-  $(document).on('ready', function () {
+    // Confirm modal interactions
     $("[data-confirm-modal]").on('click', function() {
       var postId = $(this).attr('data-id');
       var title = $(this).attr('data-title');
