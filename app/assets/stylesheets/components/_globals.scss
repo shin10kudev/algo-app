@@ -4,10 +4,13 @@ body {
   background-color: $body-background-color;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  font-family: $global-font-family;
+  color: $global-font-color;
 }
 
-.site-wrapper {
-  padding: 40px 0;
+.site-container {
+  @extend .container;
+  padding: 40px 10px;
 }
 
 // Sticky footer
@@ -15,53 +18,3 @@ body {
   min-height: calc(100vh - 166px);
 }
 // End sticky footer
-
-.posts-header > h1 {
-  margin-bottom: 25px;
-}
-
-#favorite-button {
-  color: $warning-color;
-}
-
-#post-title {
-  font-size: 22px;
-  margin: 2px 0px;
-}
-
-#code-link {
-  text-decoration: none;
-}
-
-.img-xs {
-  height: 24px;
-  width: 24px;
-  margin-left: -5px;
-  margin-bottom: 3px;
-}
-
-a.tag:hover {
-  text-decoration: none;
-  opacity: .8;
-}
-
-.list-group-item {
-  word-break: break-all;
-
-  .badge {
-    padding: 7px 10px;
-    margin-top: 4px;
-  }
-}
-
-.label-default {
-  background: none;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  color: black;
-  margin-right: 4px;
-}
-
-ol.breadcrumb {
-  background-color: $body-background-color;
-}

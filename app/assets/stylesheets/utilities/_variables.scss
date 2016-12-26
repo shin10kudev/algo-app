@@ -16,9 +16,14 @@ $warning-color: #ffb74d;
 $alert-color: #f44336;
 
 // Fonts
-$body-font-color: $black;
-$body-background-color: $light-gray;
+$font-url--google: '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700';
+
+@if variable-exists(font-url--google) {
+  @import url($font-url--google);
+}
 
 // Globals
-$global-font-family: "Roboto", "Helvetica Nue", Helvetica, Arial, sans-serif;
+$body-background-color: $light-gray;
+$global-font-family: "Source Sans Pro", "Helvetica Nue", Helvetica, Arial, sans-serif;
+$global-font-color: $black;
 $global-radius: 4px;

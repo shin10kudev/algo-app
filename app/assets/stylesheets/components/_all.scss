@@ -4,9 +4,11 @@
 @import 'globals';
 @import 'typography';
 
+// Global components
+@import 'topnav';
+@import 'footer';
+
 // Individual components
 @import 'alerts';
 @import 'notifications';
-@import 'topnav';
-@import 'code_editor';
 @import 'posts';
