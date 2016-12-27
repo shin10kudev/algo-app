@@ -20,4 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  meta:
+    title: "AlgoApp | Discover and share answers to common algorithm problems"
+    keywords: "algorithms,practice,coding,coding practice,javascript"
+    description: "AlgoApp is a place for coders and engineers to come together to share and discover solutions to the interesting algorithm problems. Create a profile and help prepare for coding interview tests."
+    url: "http://ec2-35-166-176-9.us-west-2.compute.amazonaws.com/"
