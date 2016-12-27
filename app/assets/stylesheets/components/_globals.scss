@@ -19,8 +19,53 @@ body {
 }
 // End sticky footer
 
-// Global components
+// 2-column layout definition
+.main-content {
+  @extend .col-md-8;
+}
 
+.sidebar {
+  @extend .col-md-4;
+}
+
+// Global components
 .pagination-wrapper {
   text-align: center;
+}
+
+.sidebar-module {
+  margin-bottom: 20px;
+}
+
+.catelog-preview-header {
+  margin: 0 30px 0 20px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba($pure-black, 0.0785);
+
+  .catelog-preview-name {
+    color: rgba($pure-black, 0.8);
+  }
+
+  .catelog-preview-description {
+    color: rgba($pure-black, 0.44);
+  }
+}
+
+.catelog-preview-items {
+  @extend .list-unstyled;
+
+  .catelog-preview-item {
+    margin: 20px;
+  }
+
+  .preview-item-title {
+    color: rgba($pure-black, 0.8);
+  }
+
+  .preview-item-meta {
+    margin-bottom: 0;
+    font-size: 14px;
+    color: rgba($pure-black, 0.44);
+  }
 }

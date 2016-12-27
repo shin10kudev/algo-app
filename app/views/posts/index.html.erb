@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-8 col-sm-12">
+  <div class="col-md-8">
     <div class="posts-header">
       <h1 id="site-title">Latest Algorithms</h1>
     </div>
@@ -7,7 +7,9 @@
 </div>
 
 <div class="row">
-  <div class="col-md-8 col-sm-12 main-content">
+
+  <!-- MAIN CONTENT (8-Column-Wrapper) -->
+  <main class="main-content">
     <div class="post">
       <% if @posts.empty? %>
         <em>Didn't find any algorithms...</em>
@@ -20,25 +22,36 @@
         <%= paginate @posts %>
       </div>
     </div>
-  </div>
+  </main>
 
-  <div class="col-md-4 col-sm-12 sidebar">
+  <!-- SIDEBAR (4-Column-Wrapper) -->
+  <aside class="sidebar">
+    <div class="sidebar-content-wrapper">
 
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Discover Users</h3>
-      </div>
-      <div class="panel-body">
-        <div class="list-group">
-          <% @users.each do |user| %>
-            <a href="/users/<%= user.id %>" class="list-group-item">
-              <%= image_tag user.image.url(:medium), class: "img-circle", id: "navbar-pic", alt: "user image" %>
-              <em><%= user.username %></em>
-            </a>
-          <% end %>
+      <!-- DISCOVER USERS MODULE -->
+      <div class="sidebar-module">
+        <div class="catelog-preview-header">
+          <div class="catelog-preview-name">Discover Users</div>
+          <div class="catelog-preview-description">Learn from those around you</div>
         </div>
-      </div>
-    </div>
 
-  </div>
+        <ul class="catelog-preview-items">
+        <% @users.each do |user| %>
+          <li class="catelog-preview-item">
+            <div class="media">
+              <%= link_to(user, class: "media-left") do %>
+                <%= image_tag user.image.url(:thumb), class: "img-circle user-image media-object", alt: "user image" %>
+              <% end %>
+              <div class="media-body">
+                <%= link_to user.username, user, class: "preview-item-title" %>
+                <p class="preview-item-meta"><%= pluralize(user.inverse_friendships.count, "Follower") %><span class="mid-dot-divider"></span><%= pluralize(user.posts.count, "Post") %></p>
+              </div>
+            </div>
+          </li>
+        <% end %>
+        </ul>
+      </div><!--  // discover-users-module -->
+
+    </div><!-- //sidebar-content-wrapper -->
+  </aside>
 </div>

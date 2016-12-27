@@ -31,7 +31,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post, notice: "Your algorithm was added!"
     else
-      render 'new', alert: "Oops! Something went wrong..."
+      render 'new', flash[:alert] = "Oops! Something went wrong..."
     end
   end
 
@@ -39,7 +39,7 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to @post
     else
-      render 'new', alert: "Oops! Something went wrong..."
+      render 'new', flash[:alert] = "Oops! Something went wrong..."
     end
   end
 
