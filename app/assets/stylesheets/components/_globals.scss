@@ -10,7 +10,7 @@ body {
 
 .site-container {
   @extend .container;
-  padding: 30px 10px 0;
+  padding: 30px 15px 0;
 }
 
 // Sticky footer
@@ -68,4 +68,9 @@ body {
     font-size: 14px;
     color: rgba($pure-black, 0.44);
   }
+}
+
+.form-wrapper--centered {
+  margin: 30px auto;
+  max-width: 400px;
 }

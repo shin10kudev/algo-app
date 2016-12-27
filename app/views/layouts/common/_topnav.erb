@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/posts">AlgoApp</a>
-      <%= form_tag posts_path, class: "navbar-form navbar-left", :method => :get do %>
+      <%= form_tag posts_path, class: "navbar-form navbar-left hidden-xs hidden-sm", :method => :get do %>
         <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Find Algorithms.." %>
         <%= submit_tag "Search", class: "btn btn-default", :name => nil %>
       <% end %>
@@ -97,6 +97,7 @@
     </div><!--/.nav-collapse -->
   </div>
 </nav>
+
 <script>
   $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
