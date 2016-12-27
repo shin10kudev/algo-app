@@ -26,34 +26,38 @@
                @count = @notifications.where(viewed: false).count
             %>
           <li class="dropdown">
-           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-envelope" aria-hidden="true"><% if @count > 0 %><span class="badge"><%= @count %></span><% end %></span></a>
-            <ul class="dropdown-menu" role="menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-envelope" aria-hidden="true"><% if @count > 0 %><span class="badge"><%= @count %></span><% end %></span></a>
+            <ul class="dropdown-menu notifications-dropdown" role="menu">
               <% @notifications.each do |notification| %>
-              <% @user = User.find(notification.originator_id) %>
-              <% if notification.viewed == false
-                  @class = "unchecked"
-                else
-                  @class = "checked"
-                end
-              %>
-              <li class="notifications <%= @class %>">
-                <div class="pull-right">
-                  <form action="/notifications/<%= notification.id %>" method="POST">
-                    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-                    <input type="hidden" name="_method" value="put">
-                    <button type="submit" class="btn btn-link" data-toggle="tooltip" data-placement="top" title="Mark as read">
-                      <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
-                    </button>
-                  </form>
-                </div>
-                <a href="/<%= notification.path %>">
-                  <%= image_tag @user.image.url(:medium), class: "img-circle img-xs", alt: "user image" %>
-                  <b><%= @user.username %></b> <%= notification.action %> <i><%= time_ago_in_words(notification.created_at) %> ago. </i>
-                </a>
-              </li>
+                <% @user = User.find(notification.originator_id) %>
+                <li class="notification-item<%= ' unchecked' if notification.viewed == false %>">
+                  <div class="media">
+                    <div class="media-left">
+                      <%= link_to(users_path(@user)) do %>
+                        <%= image_tag @user.image.url(:thumb), class: "img-circle media-object", alt: "user image" %>
+                      <% end %>
+                    </div>
+                    <div class="media-body">
+                      <%= link_to(users_path(@user)) do %>
+                        <%= @user.username %>
+                      <% end %>
+                      <a href="/<%= notification.path %>">
+                        <%= notification.action %>
+                      </a>
+                      <i><%= time_ago_in_words(notification.created_at) %> ago. </i>
+                    </div>
+                  </div>
+
+                  <div class="pull-right">
+                    <%= link_to(notification_path(notification.id), method: :put) do %>
+                      <span class="glyphicon glyphicon-remove-sign" data-toggle="tooltip" data-placement="top" title="mark as read"></span>
+                    <% end %>
+                  </div>
+                  </a>
+                </li>
               <% end %>
-              <li class="notifications">
-                <a href="/notifications" class="text-center">See All</a>
+              <li>
+                <%= link_to "See All", notifications_path, class: "text-center" %>
               </li>
             </ul>
           </li>

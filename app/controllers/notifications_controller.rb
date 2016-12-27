@@ -1,5 +1,4 @@
 class NotificationsController < ApplicationController
-  
   before_action :authenticate_user!
 
   def index
@@ -17,7 +16,8 @@ class NotificationsController < ApplicationController
 		if @note.destroy
 		 redirect_to(:back)
 	  else
-	    render 'notifications', alert: "Oops! something went wrong..."
+      flash[:alert] = "Oops! Something went wrong..."
+      redirect_to(:back)
 	  end
 	end
 

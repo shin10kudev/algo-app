@@ -1,23 +1,34 @@
 // Notifications styles
 
-form.notifications-inline {
-  display: inline-block;
-}
+.notifications-dropdown {
+  padding: 0;
+  min-width: 350px;
 
-form.notifications-destroy > button:hover {
-  color: $alert-color;
-}
+  .notification-item {
+    padding: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    position: relative;
 
-li.unchecked {
-  background-color: #EFF;
-}
+    &:last-child {
+      border-bottom: 0;
+      padding-top: 5px;
+      font-size: 15px;
+    }
 
-li.notifications {
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-}
+    &.unchecked {
+      background-color: #EFF;
+    }
 
-li.notifications:last-child {
-  border-bottom: none;
-  padding-top: 5px;
-  font-size: 15px;
+    span.glyphicon {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+    }
+  }
+
+  .media-body {
+    @include truncate();
+    max-width: 250px;
+    white-space: normal;
+  }
 }

@@ -1,0 +1,14 @@
+// Mixin definitions
+
+// Truncate text & add ellipses
+// @param {string} $width - e.g. 250px
+//
+@mixin truncate($width: false) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @if($width) {
+    width: $width;
+  }
+}
