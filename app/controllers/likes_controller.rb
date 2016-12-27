@@ -6,30 +6,31 @@ class LikesController < ApplicationController
   end
 
   def create
-    @post = Post.find(like_params[:post_id])
+    @post = Post.find(params[:post_id])
     @user = User.find(@post.user_id)
 
-    @like = current_user.likes.build(like_params)
+    @like = current_user.likes.build(post_id: params[:post_id])
+
   	if @like.save
       @note = @user.notifications.build(path: "posts/#{@post.id}", action: "liked your post '#{@post.title}'", originator_id: current_user.id, reference_id: @post.id)
       @note.save
+
       redirect_to(:back)
   	else
-  		render 'posts', alert: "Oops! something went wrong..."
+  		flash[:alert] = "Oops! Something went wrong..."
+      redirect_to(:back)
   	end
   end
 
   def destroy
-  	@like = current_user.likes.find_by(like_params)
+  	@like = current_user.likes.find_by(post_id: params[:id])
+
   	if @like.destroy
   	 redirect_to(:back)
     else
-      render 'posts', alert: "Oops! something went wrong..."
+      flash[:alert] = "Oops! Something went wrong..."
+      redirect_to(:back)
     end
   end
 
-  private
-    def like_params
-    	params.require(:like).permit(:post_id)
-    end
 end

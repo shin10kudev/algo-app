@@ -19,19 +19,19 @@ class FriendshipsController < ApplicationController
       @note.save
   		redirect_to(:back)
   	else
-  		render @user, alert: "Oops! something went wrong..."
+  		redirect_to(:back)
+      flash[:alert] = "Oops! Something went wrong..."
   	end
   end
 
   def destroy
-    @user = User.find(params[:id])
-
   	@friendship = current_user.friendships.find_by(friend_id: params[:id])
 
   	if @friendship.destroy
   		redirect_to(:back)
   	else
-  		render @user, alert: "Oops! something went wrong..."
+  		redirect_to(:back)
+      flash[:alert] = "Oops! Something went wrong..."
   	end
   end
 end

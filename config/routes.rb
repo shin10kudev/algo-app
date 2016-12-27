@@ -5,14 +5,12 @@ Rails.application.routes.draw do
 
   resources :posts
 
-  resources :users, only: [:show, :index, :likes] do
-    resources :likes, only: [:index, :create, :destroy]
-  end
+  resources :users, only: [:show, :index]
 
-  resources :friendships, only: [:create, :destroy]
+  resources :likes, only: [:index, :create, :destroy]
   resources :comments, only: [:create, :destroy]
+  resources :friendships, only: [:create, :destroy]
   resources :notifications, only: [:index, :destroy, :update]
-
 
   # Page routes
   get '/about', to: 'pages#about'
