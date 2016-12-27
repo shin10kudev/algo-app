@@ -10,7 +10,7 @@ body {
 
 .site-container {
   @extend .container;
-  padding: 30px 10px;
+  padding: 30px 10px 0;
 }
 
 // Sticky footer
@@ -18,3 +18,9 @@ body {
   min-height: calc(100vh - 166px);
 }
 // End sticky footer
+
+// Global components
+
+.pagination-wrapper {
+  text-align: center;
+}

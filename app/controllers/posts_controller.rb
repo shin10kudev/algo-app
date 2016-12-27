@@ -3,11 +3,10 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @posts = Post.search(params[:search])
+    # @posts = Post.search(params[:search])
+    @posts = Post.order(created_at: "DESC").page(params[:page]).per(15)
 
-    @tags = ["String", "Array", "Linked List", "Sort", "Recursive", "Stacks and Queues", "Binary Search"]
-    @algorithms = Post.limit(5).order("RANDOM()")
-
+    # discover new users
     if current_user
       @users = User.where.not(id: current_user.id).limit(5).order("RANDOM()")
     else

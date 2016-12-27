@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+# default gems
 gem 'rails', '~> 5.0.0'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -9,16 +10,17 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-# Login/registration
+# login/registration
 gem 'devise', '~> 4.2'
 
-# Image uploads
+# image uploads
 gem 'paperclip', '~> 5.1'
 
 # bootstrap
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
-gem 'will_paginate', '~> 3.1', '>= 3.1.5'
-gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.1'
+
+# pagination
+gem 'kaminari', '~> 0.17.0'
 
 # Code highlighting
 gem 'ace-rails-ap', '~> 4.1', '>= 4.1.1'

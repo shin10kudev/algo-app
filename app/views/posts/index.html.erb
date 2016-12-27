@@ -16,58 +16,29 @@
 
       <%= render 'posts' %>
 
+      <div class="pagination-wrapper">
+        <%= paginate @posts %>
+      </div>
     </div>
   </div>
 
   <div class="col-md-4 col-sm-12 sidebar">
-    <div class="aside">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h3 class="panel-title">Tags</h3>
-        </div>
-        <div class="panel-body">
-          <div class="list-group">
-            <% @tags.each do |tag| %>
-              <a href="/posts?&amp;search=<%= tag %>" class="tag">
-                <span class="label label-warning"><%= tag %></span>
-              </a>
-            <% end %>
-          </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Discover Users</h3>
+      </div>
+      <div class="panel-body">
+        <div class="list-group">
+          <% @users.each do |user| %>
+            <a href="/users/<%= user.id %>" class="list-group-item">
+              <%= image_tag user.image.url(:medium), class: "img-circle", id: "navbar-pic", alt: "user image" %>
+              <em><%= user.username %></em>
+            </a>
+          <% end %>
         </div>
       </div>
-
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h3 class="panel-title">Discover Users</h3>
-        </div>
-        <div class="panel-body">
-          <div class="list-group">
-            <% @users.each do |user| %>
-              <a href="/users/<%= user.id %>" class="list-group-item">
-                <%= image_tag user.image.url(:medium), class: "img-circle", id: "navbar-pic", alt: "user image" %>
-                <em><%= user.username %></em>
-              </a>
-            <% end %>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h3 class="panel-title">Discover Algorithms</h3>
-        </div>
-        <div class="panel-body">
-          <div class="list-group">
-            <% @algorithms.each do |post| %>
-              <a href="/posts/<%= post.id %>" class="list-group-item">
-                <%= post.title %> ·
-                <small><i><%= post.created_at.to_formatted_s(:month_and_year)  %></i></small>
-              </a>
-            <% end %>
-          </div>
-        </div>
-      </div>
-
     </div>
+
   </div>
 </div>
