@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :comments, only: [:create, :destroy]
   resources :friendships, only: [:create, :destroy]
   resources :notifications, only: [:index, :destroy, :update]
+  resources :categories
 
   # Page routes
   get '/about', to: 'pages#about'

@@ -88,6 +88,11 @@
                   <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span> Followers (<%= current_user.inverse_friendships.count %>)
                 <% end %>
               </li>
+              <li>
+                <% if current_user.admin? %>
+                  <%= link_to 'Categories', categories_path %>
+                <% end %>
+              </li>
               <li class="divider"></li>
               <li>
                 <%= link_to "Settings", edit_user_registration_path %>
