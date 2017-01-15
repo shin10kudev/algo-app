@@ -7,7 +7,7 @@ class Category < ApplicationRecord
   validates_length_of :name, minimum: 1
 
   def format_category_name
-    self.name.downcase!
+    self.name = self.name.titleize
   end
 
   def category_exists
