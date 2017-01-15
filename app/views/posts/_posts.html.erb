@@ -33,7 +33,9 @@
       <!-- FOOTER SECTION -->
       <div class="post-footer clearfix">
         <div class="pull-left">
-          <a href="/posts?&amp;search=<%= post.category %>" class="label label-primary">#<%= post.category %></a>
+          <% unless post.category.nil? %>
+            <a href="/posts?&amp;search=<%= post.category %>" class="label label-primary">#<%= post.category.name %></a>
+          <% end %>
           <a href="/posts?&amp;search=<%= post.difficulty %>" class="label label-primary">#<%= post.difficulty %></a>
         </div>
         <div class="pull-right">

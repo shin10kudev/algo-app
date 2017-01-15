@@ -35,7 +35,11 @@
       </h5>
     <h5>Created on: <%= @post.created_at.to_formatted_s(:long_ordinal)  %></h5>
     <h5>Difficulty level: <a href="/posts?&search=<%= @post.difficulty %>"><span class="label label-primary"><%= @post.difficulty %></span></a></h5>
-    <h5>Category: <a href="/posts?&search=<%= @post.category %>"><span class="label label-primary"><%= @post.category %></span></a></h5>
+
+    <% unless @post.category.nil? %>
+      <h5>Category: <a href="/posts?&search=<%= @post.category %>"><span class="label label-primary"><%= @post.category.name %></span></a></h5>
+    <% end %>
+
     <p>Description: <%= @post.description %></p>
   </div>
 </div>
