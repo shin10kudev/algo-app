@@ -1,57 +1,63 @@
-<!-- FOLLOWING -->
-<% if signed_in? && @user.id != current_user.id && current_user.friendships.where(friend_id: @user.id).empty? %>
-  <%= link_to "Follow", friendships_path(friend_id: @user.id), method: :post, class: "btn btn-info btn-sm" %>
-<% elsif signed_in? && @user.id != current_user.id %>
-  <%= link_to "Unfollow", friendship_path, method: :delete, class: "btn btn-warning btn-sm" %>
-<% end %>
-<!-- END FOLLOWING -->
-
-<div class="media">
-  <div class="media-left">
-    <%= image_tag @user.image.url(:small), class: "media-object img-circle", alt: "user image" %>
+<div class="row">
+  <div class="col-md-2">
+    <div class="profile-wrapper text-center">
+      <div class="profile-image">
+        <%= image_tag @user.image.url(:small), class: "media-object img-circle", alt: "user image" %>
+      </div>
+      <div class="profile-details">
+        <h3><%= @user.username %></h3>
+        <p>Member since: <%= @user.created_at.strftime("%B %d, %Y") %></p>
+        <p>Followers: <%= @user.inverse_friendships.count %></p>
+      </div>
+      <div class="profile-actions">
+        <!-- FOLLOWING -->
+        <% if signed_in? && @user.id != current_user.id && current_user.friendships.where(friend_id: @user.id).empty? %>
+          <%= link_to "Follow", friendships_path(friend_id: @user.id), method: :post, class: "btn btn-info btn-sm btn-block" %>
+        <% elsif signed_in? && @user.id != current_user.id %>
+          <%= link_to "Unfollow", friendship_path, method: :delete, class: "btn btn-warning btn-sm btn-block" %>
+        <% end %>
+        <!-- END FOLLOWING -->
+      </div>
+    </div>
   </div>
-  <div class="media-body">
-    <h4 class="media-heading"><%= @user.username %>'s Profile</h4>
-    <p>Member since: <%= @user.created_at.strftime("%B %d, %Y") %></p>
-    <p>Followers: <%= @user.inverse_friendships.count %></p>
+
+  <div class="col-md-10">
+
+    <% if @user.posts.empty? %>
+      <em><%= empty_state_text(@user) %></em>
+    <% else %>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Likes</th>
+          <th>Created On</th>
+          <% if has_permissions(@user.id) %>
+            <th>Actions</th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+      <% @user.posts.each do |post| %>
+        <tr>
+          <td><a href="/posts/<%= post.id %>"><%= post.title %></a></td>
+          <td><%= post.description %></td>
+          <td><%= post.likes.count %></td>
+          <td><%= post.created_at.to_formatted_s(:long_ordinal) %></td>
+          <% if has_permissions(post.user_id) %>
+          <td>
+            <button data-confirm-modal data-id="<%= post.id %>" data-title="<%= post.title %>" data-toggle="modal" data-target="#confirm-destroy-modal" class="btn btn-danger btn-xs">Delete</button>
+          </td>
+          <% end %>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% end %>
   </div>
 </div>
-
-<h4><%= @user.username %>'s  Algorithms</h4>
-
-<% if @user.posts.empty? %>
-  <em><%= empty_state_text(@user) %></em>
-<% else %>
-
-  <table class="table table-bordered">
-  	<thead>
-  		<tr>
-  			<th>Title</th>
-        <th>Description</th>
-  			<th>Likes</th>
-  			<th>Created On</th>
-        <% if has_permissions(@user.id) %>
-          <th>Actions</th>
-        <% end %>
-  		</tr>
-  	</thead>
-  	<tbody>
-  	<% @user.posts.each do |post| %>
-  		<tr>
-  			<td><a href="/posts/<%= post.id %>"><%= post.title %></a></td>
-        <td><%= post.description %></td>
-  			<td><%= post.likes.count %></td>
-  			<td><%= post.created_at.to_formatted_s(:long_ordinal) %></td>
-        <% if has_permissions(post.user_id) %>
-        <td>
-          <button data-confirm-modal data-id="<%= post.id %>" data-title="<%= post.title %>" data-toggle="modal" data-target="#confirm-destroy-modal" class="btn btn-danger btn-xs">Delete</button>
-        </td>
-        <% end %>
-  		</tr>
-  		<% end %>
-  	</tbody>
-  </table>
-<% end %>
 
 <%= render 'remove_post_confirmation_modal' %>
 

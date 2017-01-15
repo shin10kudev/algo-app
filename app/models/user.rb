@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  # allows you to use User.admin?
+  enum role: [ :general, :admin ]
+
   validates :username, presence: true, length: { in: 2..30 }
   validates_uniqueness_of :username
 
