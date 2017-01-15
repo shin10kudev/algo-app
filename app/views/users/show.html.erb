@@ -2,7 +2,9 @@
   <div class="col-md-2">
     <div class="profile-wrapper text-center">
       <div class="profile-image">
-        <%= image_tag @user.image.url(:small), class: "media-object img-circle", alt: "user image" %>
+        <%= link_to(user_path(@user)) do %>
+          <%= image_tag @user.image.url(:small), class: "media-object img-circle", alt: "user image" %>
+        <% end %>
       </div>
       <div class="profile-details">
         <h3><%= @user.username %></h3>
@@ -23,9 +25,19 @@
 
   <div class="col-md-10">
 
-    <% if @user.posts.empty? %>
+    <% if @posts.empty? %>
       <em><%= empty_state_text(@user) %></em>
     <% else %>
+
+    <div class="search-and-filter-wrapper clearfix">
+      <div class="pull-right">
+        <span>Filter: </span>
+        <%= select_tag "post-category-switcher",
+            options_for_select(Category.all.map{ |category| [category.name, category.id] },
+            selected: params[:category_id]), { include_blank: 'All Algorithms'}
+        %>
+      </div>
+    </div>
 
     <table class="table table-bordered">
       <thead>
@@ -33,6 +45,7 @@
           <th>Title</th>
           <th>Description</th>
           <th>Likes</th>
+          <th>Category</th>
           <th>Created On</th>
           <% if has_permissions(@user.id) %>
             <th>Actions</th>
@@ -40,11 +53,12 @@
         </tr>
       </thead>
       <tbody>
-      <% @user.posts.each do |post| %>
+      <% @posts.each do |post| %>
         <tr>
           <td><a href="/posts/<%= post.id %>"><%= post.title %></a></td>
           <td><%= post.description %></td>
           <td><%= post.likes.count %></td>
+          <td><%= link_to post.category.name, user_path(category_id: post.category.id) %></td>
           <td><%= post.created_at.to_formatted_s(:long_ordinal) %></td>
           <% if has_permissions(post.user_id) %>
           <td>
@@ -56,10 +70,30 @@
       </tbody>
     </table>
     <% end %>
+
+    <% if params[:category_id] %>
+      <div class="div text-center">
+        <%= link_to 'Clear filter', user_path(current_user) %>
+      </div>
+    <% end %>
+
   </div>
 </div>
 
 <%= render 'remove_post_confirmation_modal' %>
+
+<script>
+  $('#post-category-switcher').on('change', function() {
+    var category_id = $(this).val();
+    var user_id = <%= current_user.id %>
+
+    if(!category_id) {
+      window.location.href = '/users/' + user_id;
+    } else {
+      window.location.href = '?category_id=' + category_id;
+    }
+  });
+</script>
 
 <script>
   $(document).on('ready', function () {
