@@ -54,8 +54,8 @@
   </div>
 
   <div class="field form-group">
-    <%= f.label :category %><br>
-    <%= f.select(:category, [['String','string'],['Array','array'],['Sort','sort'],['Linked list','linked list']], {}, { class: "form-control" }) %>
+    <%= f.label :category_id %><br>
+    <%= f.select(:category_id, Category.all.map{ |category| [category.name, category.id] }, {}, { class: "form-control" }) %>
   </div>
 
   <div class="actions">

@@ -28,6 +28,7 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
+
     if @post.save
       redirect_to @post, notice: "Your algorithm was added!"
     else
@@ -57,6 +58,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :code, :description, :difficulty, :category)
+      params.require(:post).permit(:title, :code, :description, :difficulty, :category_id)
     end
 end
