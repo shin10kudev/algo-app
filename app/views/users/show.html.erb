@@ -58,7 +58,11 @@
           <td><a href="/posts/<%= post.id %>"><%= post.title %></a></td>
           <td><%= post.description %></td>
           <td><%= post.likes.count %></td>
-          <td><%= link_to post.category.name, user_path(category_id: post.category.id) %></td>
+          <td>
+            <% unless post.category.nil? %>
+              <%= link_to post.category.name, user_path(category_id: post.category.id) %>
+            <% end %>
+          </td>
           <td><%= post.created_at.to_formatted_s(:long_ordinal) %></td>
           <% if has_permissions(post.user_id) %>
           <td>
