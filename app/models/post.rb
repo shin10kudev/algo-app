@@ -4,7 +4,7 @@ class Post < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
-  validates :title, presence: true, length: { in: 2..30 }
+  validates :title, presence: true, length: { in: 2..75 }
   validates :description, presence: true, length: { in: 2..500 }
   validates :code, presence: true
   validates :user_id, presence: true
