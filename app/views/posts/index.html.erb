@@ -2,10 +2,16 @@
   <div class="col-md-8">
     <div class="posts-header">
       <% if params[:category_id] %>
-        <div class="heading-prefix">Algorithm Category:</div>
+        <div class="heading-prefix">
+          Algorithm Category:
+           <%= link_to 'Clear filter', posts_path, class: "pull-right" %>
+        </div>
         <h1 class="heading-title"><%= Category.find(params[:category_id]).name %></h1>
       <% elsif params[:difficulty_level] %>
-        <div class="heading-prefix">Algorithm Difficulty:</div>
+        <div class="heading-prefix">
+          Algorithm Difficulty:
+          <%= link_to 'Clear filter', posts_path, class: "pull-right" %>
+        </div>
         <h1 class="heading-title"><%= params[:difficulty_level] %></h1>
       <% else %>
         <h1 class="heading-title">Latest Algorithms</h1>
@@ -36,6 +42,37 @@
   <aside class="sidebar">
     <div class="sidebar-content-wrapper">
 
+      <!-- FILTER ALGORITHMS MODULE -->
+      <div class="sidebar-module">
+        <div class="catelog-preview-header">
+          <div class="catelog-preview-name">Categories</div>
+          <div class="catelog-preview-description">Filter algorithms by category</div>
+        </div>
+
+        <div class="catelog-preview-basic-wrapper">
+        <% Category.all.each do |category| %>
+          <% unless category.posts.empty? %>
+            <%= link_to category.name, posts_path(category_id: category.id), class: "label label-primary" %>
+          <% end %>
+        <% end %>
+        </div>
+      </div><!-- // filter-algorithms-module -->
+
+      <!-- FILTER ALGORITHMS MODULE -->
+      <div class="sidebar-module">
+        <div class="catelog-preview-header">
+          <div class="catelog-preview-name">Categories</div>
+          <div class="catelog-preview-description">Filter algorithms by difficulty level</div>
+        </div>
+
+        <div class="catelog-preview-basic-wrapper">
+        <% @levels = ['Easy', 'Medium', 'Hard'] %>
+        <% @levels.each do |level| %>
+          <%= link_to level, posts_path(difficulty_level: level), class: "label label-primary" %>
+        <% end %>
+        </div>
+      </div><!-- // filter-algorithms-module -->
+
       <!-- DISCOVER USERS MODULE -->
       <div class="sidebar-module">
         <div class="catelog-preview-header">
@@ -58,7 +95,7 @@
           </li>
         <% end %>
         </ul>
-      </div><!--  // discover-users-module -->
+      </div><!-- //discover-users-module -->
 
     </div><!-- //sidebar-content-wrapper -->
   </aside>
