@@ -56,7 +56,7 @@
       <% @posts.each do |post| %>
         <tr>
           <td><a href="/posts/<%= post.id %>"><%= post.title %></a></td>
-          <td><%= truncate(post.description, length: 250) %></td>
+          <td><%= truncate(post.description, length: 150) %></td>
           <td><%= post.likes.count %></td>
           <td>
             <% unless post.category.nil? %>
