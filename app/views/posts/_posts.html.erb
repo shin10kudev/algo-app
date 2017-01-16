@@ -34,9 +34,9 @@
       <div class="post-footer clearfix">
         <div class="pull-left">
           <% unless post.category.nil? %>
-            <a href="/posts?&amp;search=<%= post.category %>" class="label label-primary">#<%= post.category.name %></a>
+            <%= link_to post.category.name, posts_path(category_id: post.category.id), class: "label label-primary" %>
           <% end %>
-          <a href="/posts?&amp;search=<%= post.difficulty %>" class="label label-primary">#<%= post.difficulty %></a>
+          <%= link_to post.difficulty, posts_path(difficulty_level: post.difficulty), class: "label label-primary" %>
         </div>
         <div class="pull-right">
           <span class="likes-count"><%= pluralize(post.likes.count, 'likes') %></span><span class="mid-dot-divider"></span><a href="/posts/<%= post.id %>/#comments"><%= pluralize(post.comments.count, 'response') %></a>

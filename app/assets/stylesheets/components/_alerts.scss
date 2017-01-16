@@ -15,10 +15,12 @@
   }
 
   &.notice {
+    color: $white;
     background-color: $notice-color;
   }
 
   &.alert {
+    color: $white;
     background-color: $warning-color;
   }
 

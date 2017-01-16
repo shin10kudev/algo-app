@@ -6,6 +6,14 @@ class PostsController < ApplicationController
     # @posts = Post.search(params[:search])
     @posts = Post.order(created_at: "DESC").page(params[:page]).per(15)
 
+    if params[:category_id]
+      @posts = @posts.where(category_id: params[:category_id]).page(params[:page]).per(15)
+    end
+
+    if params[:difficulty_level]
+      @posts = @posts.where(difficulty: params[:difficulty_level]).page(params[:page]).per(15)
+    end
+
     # discover new users
     if current_user
       @users = User.where.not(id: current_user.id).limit(5).order("RANDOM()")
@@ -32,15 +40,17 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post, notice: "Your algorithm was added!"
     else
-      render 'new', flash[:alert] = "Oops! Something went wrong..."
+      flash[:alert] = "Oops! Something went wrong..."
+      render 'new'
     end
   end
 
   def update
     if @post.update(post_params)
-      redirect_to @post
+      redirect_to @post, notice: "Your algorithm was updated!"
     else
-      render 'new', flash[:alert] = "Oops! Something went wrong..."
+      flash[:alert] = "Oops! Something went wrong... Please try again."
+      render 'new'
     end
   end
 

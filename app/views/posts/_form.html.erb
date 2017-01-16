@@ -2,7 +2,6 @@
   <% if @post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@post.errors.count, "error") %> prevented this post from being saved:</h2>
-
       <ul>
       <% @post.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -50,7 +49,7 @@
 
   <div class="field form-group">
     <%= f.label :difficulty %><br>
-    <%= f.select(:difficulty, [['Easy','easy'],['Medium','medium'],['Hard','hard']], {}, { class: "form-control" }) %>
+    <%= f.select(:difficulty, [['Easy','Easy'],['Medium','Medium'],['Hard','Hard']], {}, { class: "form-control" }) %>
   </div>
 
   <div class="field form-group">
