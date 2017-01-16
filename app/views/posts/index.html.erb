@@ -2,11 +2,11 @@
   <div class="col-md-8">
     <div class="posts-header">
       <% if params[:category_id] %>
-        <div class="heading-prefix">Category</div>
+        <div class="heading-prefix">Algorithm Category:</div>
         <h1 class="heading-title"><%= Category.find(params[:category_id]).name %></h1>
       <% elsif params[:difficulty_level] %>
-        <div class="heading-prefix">Algorithms Category:</div>
-        <h1 class="heading-title"><%= params[:category_id] %></h1>
+        <div class="heading-prefix">Algorithm Difficulty:</div>
+        <h1 class="heading-title"><%= params[:difficulty_level] %></h1>
       <% else %>
         <h1 class="heading-title">Latest Algorithms</h1>
       <% end %>
