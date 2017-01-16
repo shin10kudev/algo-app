@@ -43,7 +43,7 @@
       <thead>
         <tr>
           <th>Title</th>
-          <th>Description</th>
+          <th width="50%">Description</th>
           <th>Likes</th>
           <th>Category</th>
           <th>Created On</th>
@@ -63,7 +63,7 @@
               <%= link_to post.category.name, user_path(category_id: post.category.id) %>
             <% end %>
           </td>
-          <td><%= post.created_at.to_formatted_s(:long_ordinal) %></td>
+          <td><%= post.created_at.strftime('%x') %></td>
           <% if has_permissions(post.user_id) %>
           <td>
             <%= link_to "Edit", edit_post_path, class: "btn btn-info btn-xs btn-block" %>
