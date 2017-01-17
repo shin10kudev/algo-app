@@ -1,8 +1,9 @@
 // Footer styles
 
 .site-footer {
-  .breadcrumb {
-    background-color: $body-background-color;
-    margin-bottom: 10px;
+  padding: 20px;
+
+  .list-inline {
+    margin-bottom: 0;
   }
 }
