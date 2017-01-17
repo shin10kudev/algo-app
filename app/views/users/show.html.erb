@@ -90,7 +90,7 @@
 <script>
   $('#post-category-switcher').on('change', function() {
     var category_id = $(this).val();
-    var user_id = <%= current_user.id %>
+    var user_id = <%= @user.id %>
 
     if(!category_id) {
       window.location.href = '/users/' + user_id;
