@@ -4,9 +4,15 @@
       <% if params[:category_id] %>
         <div class="heading-prefix">
           Algorithm Category:
-           <%= link_to 'Clear filter', posts_path, class: "pull-right" %>
+          <%= link_to 'Clear filter', posts_path, class: "pull-right" %>
         </div>
         <h1 class="heading-title"><%= Category.find(params[:category_id]).name %></h1>
+      <% elsif params[:search] %>
+        <div class="heading-prefix">
+          Search query:
+          <%= link_to 'Clear search query', posts_path, class: "pull-right" %>
+        </div>
+        <h1 class="heading-title"><%= params[:search] %></h1>
       <% elsif params[:difficulty_level] %>
         <div class="heading-prefix">
           Algorithm Difficulty:

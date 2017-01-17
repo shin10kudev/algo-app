@@ -3,15 +3,18 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    # @posts = Post.search(params[:search])
-    @posts = Post.order(created_at: "DESC").page(params[:page]).per(15)
+    @posts = Post.order(created_at: "DESC").page(params[:page])
+
+    if params[:search]
+      @posts = Post.search(params[:search]).page(params[:page])
+    end
 
     if params[:category_id]
-      @posts = @posts.where(category_id: params[:category_id]).page(params[:page]).per(15)
+      @posts = @posts.where(category_id: params[:category_id]).page(params[:page])
     end
 
     if params[:difficulty_level]
-      @posts = @posts.where(difficulty: params[:difficulty_level]).page(params[:page]).per(15)
+      @posts = @posts.where(difficulty: params[:difficulty_level]).page(params[:page])
     end
 
     # discover new users
@@ -24,7 +27,6 @@ class PostsController < ApplicationController
 
   def show
     @comments = @post.comments
-    @likes = @post.likes.includes(:user).limit(25)
   end
 
   def new
@@ -55,9 +57,13 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy
-    flash[:notice] = "Your algorithm was deleted!"
-    redirect_to user_path(current_user)
+    if @post.destroy
+      flash[:notice] = "Your algorithm was deleted!"
+      redirect_to user_path(current_user)
+    else
+      flash[:alert] = "Oops! Something went wrong... Please try again."
+      redirect_to(:back)
+    end
   end
 
   private

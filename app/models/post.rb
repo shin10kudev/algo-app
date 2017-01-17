@@ -17,13 +17,11 @@ class Post < ActiveRecord::Base
     inclusion: { in: Category.all.map{ |category| category.id },
     message: "%{value} is not a valid category" }
 
-  # def self.search(search)
-  #   if search
-  #     search = search.downcase
-
-  #     Post.where('LOWER(title) LIKE ? OR LOWER(description) LIKE ? OR LOWER(category) LIKE ? OR LOWER(difficulty) LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
-  #   else
-  #     Post.all.order(created_at: "DESC")
-  #   end
-  # end
+  # perform search on Posts
+  def self.search(search)
+    if search
+      search = search.downcase
+      Post.where('LOWER(title) LIKE ? OR LOWER(description) LIKE ? OR LOWER(difficulty) LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%")
+    end
+  end
 end
