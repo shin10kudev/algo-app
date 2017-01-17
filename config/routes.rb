@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   # Page routes
   get '/about', to: 'pages#about'
   get '/contact', to: 'pages#contact'
+  get '/privacy', to: 'pages#privacy_policy'
+  get '/tos', to: 'pages#terms_of_service'
 
   # Following routes
   get '/user/following', to: 'friendships#following'
