@@ -9,7 +9,7 @@
       </button>
       <a class="navbar-brand" href="/posts">AlgoApp</a>
       <%= form_tag posts_path, class: "navbar-form navbar-left hidden-xs hidden-sm", :method => :get do %>
-        <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Find Algorithms.." %>
+        <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Find Algorithms..", required: 'required' %>
         <%= submit_tag "Search", class: "btn btn-default", :name => nil %>
       <% end %>
     </div>
