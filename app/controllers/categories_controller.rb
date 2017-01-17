@@ -17,8 +17,8 @@ class CategoriesController < ApplicationController
       flash[:notice] = "Category successfully created!"
       redirect_to categories_path
     else
+      flash[:error] = "Oops! Something went wrong... Please try again."
       render 'new'
-      flash[:error] = "Oops! Something went wrong. Please try again"
     end
   end
 
@@ -27,11 +27,11 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      flash[:notice] = "Category successfully updated!"
+      flash[:success] = "Category successfully updated!"
       redirect_to categories_path
     else
+      flash[:alert] = "Oops! Something went wrong... Please try again."
       render 'new'
-      flash[:alert] = "Oops! Something went wrong..."
     end
   end
 
@@ -40,15 +40,15 @@ class CategoriesController < ApplicationController
       flash[:notice] = "Category was deleted!"
       redirect_to categories_path
     else
-      flash[:notice] = "Category cannot be deleted!"
+      flash[:alert] = "Category in use. Category cannot be deleted!"
       redirect_to categories_path
     end
   end
 
   def check_user_role
     if !current_user.admin?
-      redirect_to(:back)
       flash[:error] = "You need to be an admin to access this feature"
+      redirect_to(:back)
     end
   end
 

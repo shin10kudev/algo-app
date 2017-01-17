@@ -19,8 +19,8 @@ class FriendshipsController < ApplicationController
       @note.save
   		redirect_to(:back)
   	else
-  		redirect_to(:back)
-      flash[:alert] = "Oops! Something went wrong..."
+      flash[:alert] = "Oops! Something went wrong... Please try again."
+      redirect_to(:back)
   	end
   end
 
@@ -30,8 +30,8 @@ class FriendshipsController < ApplicationController
   	if @friendship.destroy
   		redirect_to(:back)
   	else
-  		redirect_to(:back)
-      flash[:alert] = "Oops! Something went wrong..."
+      flash[:alert] = "Oops! Something went wrong... Please try again."
+      redirect_to(:back)
   	end
   end
 end

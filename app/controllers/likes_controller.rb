@@ -17,7 +17,7 @@ class LikesController < ApplicationController
 
       redirect_to(:back)
   	else
-  		flash[:alert] = "Oops! Something went wrong..."
+  		flash[:alert] = "Oops! Something went wrong... Please try again"
       redirect_to(:back)
   	end
   end
@@ -28,7 +28,7 @@ class LikesController < ApplicationController
   	if @like.destroy
   	 redirect_to(:back)
     else
-      flash[:alert] = "Oops! Something went wrong..."
+      flash[:alert] = "Oops! Something went wrong... Please try again"
       redirect_to(:back)
     end
   end

@@ -19,15 +19,6 @@
 //= require ace/theme-monokai
 //= require ace/mode-javascript
 
-// Fade-out-remove animation for alerts
-$(document).ready(function() {
-	setTimeout(function() {
-		$('.alert-box').slideUp('slow', function() {
-			$(this).remove();
-		})
-	}, 2000);
-});
-
 // Data confirm modal interactions
 $(document).on('ready', function () {
   var $confirmationModal = $("[data-confirm-modal]");

@@ -1,31 +1,35 @@
 // alert styles
 
-.alert-box {
-  left: 0;
-  padding: 24px 15px;
+.alert {
+  left: 50%;
+  padding: 10px 30px;
   position: absolute;
   text-align: center;
-  top: 0;
-  width: 100%;
+  top: 55px;
+  transform: translateX(-50%);
   z-index: 1099;
+}
 
-  &.success {
-    background-color: $success-color;
-    color: $white;
-  }
+.alert-success {
+  background-color: $success-color;
+  color: $white;
+  border-color: darken($success-color, 2%);
+}
 
-  &.notice {
-    color: $white;
-    background-color: $notice-color;
-  }
+.alert-info {
+  background-color: $info-color;
+  color: $white;
+  border-color: darken($info-color, 2%);
+}
 
-  &.alert {
-    color: $white;
-    background-color: $warning-color;
-  }
+.alert-warning {
+  background-color: $warning-color;
+  color: $white;
+  border-color: darken($warning-color, 2%);
+}
 
-  &.danger {
-    background-color: $alert-color;
-    color: $white;
-  }
+.alert-danger {
+  background-color: $danger-color;
+  color: $white;
+  border-color: darken($danger-color, 2%);
 }

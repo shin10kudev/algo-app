@@ -40,9 +40,10 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
 
     if @post.save
-      redirect_to @post, notice: "Your algorithm was added!"
+      flash[:success] = "Your algorithm was added!"
+      redirect_to @post
     else
-      flash[:alert] = "Oops! Something went wrong..."
+      flash[:alert] = "Oops! Something went wrong... Please try again."
       render 'new'
     end
   end
@@ -51,7 +52,7 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to @post, notice: "Your algorithm was updated!"
     else
-      flash[:alert] = "Oops! Something went wrong... Please try again."
+      flash[:error] = "Oops! Something went wrong... Please try again."
       render 'new'
     end
   end
@@ -61,8 +62,8 @@ class PostsController < ApplicationController
       flash[:notice] = "Your algorithm was deleted!"
       redirect_to user_path(current_user)
     else
-      flash[:alert] = "Oops! Something went wrong... Please try again."
       redirect_to(:back)
+      flash[:error] = "Oops! Something went wrong... Please try again."
     end
   end
 

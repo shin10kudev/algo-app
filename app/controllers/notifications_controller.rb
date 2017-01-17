@@ -16,7 +16,7 @@ class NotificationsController < ApplicationController
 		if @note.destroy
 		 redirect_to(:back)
 	  else
-      flash[:alert] = "Oops! Something went wrong..."
+      flash[:alert] = "Oops! Something went wrong... Please try again."
       redirect_to(:back)
 	  end
 	end
