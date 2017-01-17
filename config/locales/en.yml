@@ -21,7 +21,7 @@
 
 en:
   meta:
-    title: "AlgoApp | Discover and share answers to common algorithm problems"
+    title: "Discover algorithms and share your solutions"
     keywords: "algorithms,practice,coding,coding practice,javascript"
-    description: "AlgoApp is a place for coders and engineers to come together to share and discover solutions to the interesting algorithm problems. Create a profile and help prepare for coding interview tests."
+    description: "AlgoApp is a place for coders to discover and share solutions to algorithms. Create an account to improve your algorithm skills."
     url: "http://ec2-35-166-176-9.us-west-2.compute.amazonaws.com/"

@@ -29,51 +29,19 @@
       <em><%= empty_state_text(@user) %></em>
     <% else %>
 
-    <div class="search-and-filter-wrapper clearfix">
-      <div class="pull-right">
-        <span>Filter: </span>
-        <%= select_tag "post-category-switcher",
-            options_for_select(@user.posts.map(&:category).uniq.map{ |category| [category.name, category.id] },
-            selected: params[:category_id]), { include_blank: 'All Algorithms'}
-        %>
-      </div>
-    </div>
+      <!-- search-filter -->
+      <div class="search-and-filter-wrapper clearfix">
+        <div class="pull-right">
+          <span>Filter: </span>
+          <%= select_tag "post-category-switcher",
+              options_for_select(@user.posts.map(&:category).uniq.map{ |category| [category.name, category.id] },
+              selected: params[:category_id]), { include_blank: 'All Algorithms'}
+          %>
+        </div>
+      </div><!-- //search-filter -->
 
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Likes</th>
-          <th>Category</th>
-          <th>Created On</th>
-          <% if has_permissions(@user.id) %>
-            <th>Actions</th>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-      <% @posts.each do |post| %>
-        <tr>
-          <td><a href="/posts/<%= post.id %>"><%= post.title %></a></td>
-          <td><%= truncate(post.description, length: 150) %></td>
-          <td><%= post.likes.count %></td>
-          <td>
-            <% unless post.category.nil? %>
-              <%= link_to post.category.name, user_path(category_id: post.category.id) %>
-            <% end %>
-          </td>
-          <td><%= post.created_at.strftime('%x') %></td>
-          <% if has_permissions(post.user_id) %>
-          <td>
-            <%= link_to "Edit", edit_post_path, class: "btn btn-info btn-xs btn-block" %>
-            <button data-confirm-modal data-id="<%= post.id %>" data-title="<%= post.title %>" data-toggle="modal" data-target="#confirm-destroy-modal" class="btn btn-danger btn-xs btn-block">Delete</button>
-          </td>
-          <% end %>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+      <%= render 'posts/posts' %>
+
     <% end %>
 
     <% if params[:category_id] %>
@@ -89,7 +57,7 @@
   </div>
 </div>
 
-<%= render 'remove_post_confirmation_modal' %>
+<%= render 'posts/remove_post_confirmation_modal' %>
 
 <script>
   $('#post-category-switcher').on('change', function() {
@@ -101,18 +69,5 @@
     } else {
       window.location.href = '?category_id=' + category_id;
     }
-  });
-</script>
-
-<script>
-  $(document).on('ready', function () {
-    // Confirm modal interactions
-    $("[data-confirm-modal]").on('click', function() {
-      var postId = $(this).attr('data-id');
-      var title = $(this).attr('data-title');
-
-      $('#destroy-button').attr("href", "/posts/" + postId);
-      $('.modal-title').html("Delete " + title + "?");
-    });
   });
 </script>

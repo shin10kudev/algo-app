@@ -3,6 +3,25 @@
   <div class="post-wrapper">
     <div class="post-wrapper-inner">
 
+      <!-- post-actions -->
+      <% if has_permissions(post.user_id) %>
+        <div class="pull-right">
+          <div class="dropdown">
+            <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-link">
+              <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+            </button>
+            <ul class="dropdown-menu pull-right" aria-labelledby="dLabel">
+              <li><%= link_to "Edit post", edit_post_path(post) %></li>
+              <li role="separator" class="divider"></li>
+              <li>
+                <a data-confirm-modal data-id="<%= post.id %>" data-title="<%= post.title %>" data-toggle="modal" data-target="#confirm-destroy-modal">Delete</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+      <!-- //post-actions -->
+
       <!-- USER INFO -->
       <div class="post-author-info">
         <div class="media-left">
