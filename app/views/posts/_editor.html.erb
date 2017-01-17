@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-12">
-		<div id="container">
+		<div id="editor-wrapper">
 			<div id="editor"><%= @post.code %></div>
 
 			<script>
@@ -46,11 +46,13 @@
 	</div>
 </div>
 
-<div class="console-ctrl">
-	<div class="btn-group" role="group" aria-label="console control buttons">
-		<button class="btn btn-primary" id="run-btn">Run in Console</button>
-		<button class="btn btn-primary" id="clear-btn">Clear</button>
+<% if has_permissions(@post.user.id) %>
+	<div class="console-ctrl">
+		<div class="btn-group" role="group" aria-label="console control buttons">
+			<button class="btn btn-primary" id="run-btn">Run in Console</button>
+			<button class="btn btn-primary" id="clear-btn">Clear</button>
+		</div>
 	</div>
-</div>
 
-<div class="form-control" id="console">Algorithm Output:<br></div>
+	<div class="form-control" id="console">Algorithm Output:<br></div>
+<% end %>

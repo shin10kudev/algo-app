@@ -27,12 +27,11 @@
       Comments <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> <%= @post.comments.count %>
     </span>
     </a>
-    <div class="star-rating" data-score= <%= @avg_review %> ></div>
-      <h5>Posted by:
-        <%= link_to(user_path(@post.user_id)) do %>
-          <%= @post.user.username %>
-        <% end %>
-      </h5>
+    <h5>Posted by:
+      <%= link_to(user_path(@post.user_id)) do %>
+        <%= @post.user.username %>
+      <% end %>
+    </h5>
     <h5>Created on: <%= @post.created_at.to_formatted_s(:long_ordinal)  %></h5>
     <h5>Difficulty level: <a href="/posts?&search=<%= @post.difficulty %>"><span class="label label-primary"><%= @post.difficulty %></span></a></h5>
 
@@ -46,7 +45,7 @@
 
 <%= render 'editor' %>
 
-<div class="row">
+<div class="row margin-top-20">
   <a name="comments"></a>
   <div class="col-md-12">
     <h3>Comments (<%= @comments.length %>)</h3>
