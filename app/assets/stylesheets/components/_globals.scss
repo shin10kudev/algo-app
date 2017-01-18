@@ -78,3 +78,19 @@ body {
   margin: 30px auto;
   max-width: 400px;
 }
+
+.glyphicon {
+  vertical-align: middle;
+}
+
+.label.label-inverted {
+  color: $global-font-color;
+  background-color: $white;
+  border: 1px solid #f0f0f0;
+
+  &:hover {
+    border-color: $dark-gray;
+    background-color: $white;
+    color: $global-font-color;
+  }
+}

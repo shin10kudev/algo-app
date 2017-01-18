@@ -3,24 +3,32 @@
   <div class="post-wrapper">
     <div class="post-wrapper-inner">
 
-      <!-- post-actions -->
-      <% if has_permissions(post.user_id) %>
-        <div class="pull-right">
-          <div class="dropdown">
-            <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-link">
-              <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-            </button>
-            <ul class="dropdown-menu pull-right" aria-labelledby="dLabel">
-              <li><%= link_to "Edit post", edit_post_path(post) %></li>
-              <li role="separator" class="divider"></li>
-              <li>
-                <a data-confirm-modal data-id="<%= post.id %>" data-title="<%= post.title %>" data-toggle="modal" data-target="#confirm-destroy-modal">Delete</a>
-              </li>
-            </ul>
+      <div class="action-items-bar">
+        <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>&nbsp;
+        <% unless post.category.nil? %>
+          <%= link_to post.category.name, posts_path(category_id: post.category.id), class: "label label-inverted" %>
+        <% end %>
+        <%= link_to post.difficulty, posts_path(difficulty_level: post.difficulty), class: "label label-inverted" %>
+
+        <!-- post-actions -->
+        <% if has_permissions(post.user_id) %>
+          <div class="pull-right">
+            <div class="dropdown">
+              <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-link">
+                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+              </button>
+              <ul class="dropdown-menu pull-right" aria-labelledby="dLabel">
+                <li><%= link_to "Edit post", edit_post_path(post) %></li>
+                <li role="separator" class="divider"></li>
+                <li>
+                  <a data-confirm-modal data-id="<%= post.id %>" data-title="<%= post.title %>" data-toggle="modal" data-target="#confirm-destroy-modal">Delete</a>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
-      <% end %>
-      <!-- //post-actions -->
+        <% end %>
+        <!-- //post-actions -->
+      </div>
 
       <!-- USER INFO -->
       <div class="post-author-info">
@@ -52,13 +60,10 @@
       <!-- FOOTER SECTION -->
       <div class="post-footer clearfix">
         <div class="pull-left">
-          <% unless post.category.nil? %>
-            <%= link_to post.category.name, posts_path(category_id: post.category.id), class: "label label-primary" %>
-          <% end %>
-          <%= link_to post.difficulty, posts_path(difficulty_level: post.difficulty), class: "label label-primary" %>
+          <span class="likes-count"><%= pluralize(post.likes.count, 'like') %></span>
         </div>
         <div class="pull-right">
-          <span class="likes-count"><%= pluralize(post.likes.count, 'likes') %></span><span class="mid-dot-divider"></span><a href="/posts/<%= post.id %>/#comments"><%= pluralize(post.comments.count, 'response') %></a>
+          <a href="/posts/<%= post.id %>/#comments"><%= pluralize(post.comments.count, 'response') %></a>
         </div>
       </div>
     </div>

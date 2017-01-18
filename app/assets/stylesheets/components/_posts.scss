@@ -76,3 +76,10 @@
     content: "·";
   }
 }
+
+.action-items-bar {
+  .glyphicon-tag {
+    color: $dark-gray;
+    transform: rotate(90deg);
+  }
+}
