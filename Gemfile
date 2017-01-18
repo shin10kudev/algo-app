@@ -26,6 +26,9 @@ gem 'kaminari', '~> 0.17.0'
 # Code highlighting
 gem 'ace-rails-ap', '~> 4.1', '>= 4.1.1'
 
+# Friendly urls
+gem 'friendly_id', '~> 5.2'
+
 # Development
 group :development, :test do
   gem 'byebug'

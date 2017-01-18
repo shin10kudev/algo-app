@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
     @posts = @user.posts.page(params[:page]).per(15)
 
     if params[:category_id]

@@ -21,4 +21,8 @@ class User < ActiveRecord::Base
 
   has_attached_file :image, styles: { medium: "150x150#", small: "85x85#", thumb: "35x35#" }, default_url: "paperclip/:style/missing-user-image.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+
+  # Friendly_id
+  extend FriendlyId
+  friendly_id :username
 end
