@@ -14,7 +14,7 @@
       <div class="profile-actions">
         <!-- FOLLOWING -->
         <% if signed_in? && @user.id != current_user.id && current_user.friendships.where(friend_id: @user.id).empty? %>
-          <%= link_to "Follow", friendships_path(friend_id: @user.id), method: :post, class: "btn btn-info btn-sm btn-block" %>
+          <%= link_to "Follow", friendships_path(id: @user.id), method: :post, class: "btn btn-info btn-sm btn-block" %>
         <% elsif signed_in? && @user.id != current_user.id %>
           <%= link_to "Unfollow", friendship_path, method: :delete, class: "btn btn-warning btn-sm btn-block" %>
         <% end %>

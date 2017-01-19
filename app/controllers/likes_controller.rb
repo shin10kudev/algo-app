@@ -1,36 +1,37 @@
 class LikesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_post, only: [:create, :destroy]
 
-  def index
+  def favorites
     @likes = current_user.likes
   end
 
   def create
-    @post = Post.find(params[:post_id])
-    @user = User.find(@post.user_id)
-
-    @like = current_user.likes.build(post_id: params[:post_id])
+    @like = current_user.likes.build(post_id: @post.id)
 
   	if @like.save
-      @note = @user.notifications.build(path: "posts/#{@post.id}", action: "liked your post '#{@post.title}'", originator_id: current_user.id, reference_id: @post.id)
-      @note.save
-
-      redirect_to(:back)
+      redirect_to :back
   	else
   		flash[:alert] = "Oops! Something went wrong... Please try again"
-      redirect_to(:back)
+      redirect_to :back
   	end
   end
 
   def destroy
-  	@like = current_user.likes.find_by(post_id: params[:id])
+  	@like = current_user.likes.find_by(post_id: @post.id)
 
   	if @like.destroy
-  	 redirect_to(:back)
+  	 redirect_to :back
     else
       flash[:alert] = "Oops! Something went wrong... Please try again"
-      redirect_to(:back)
+      redirect_to :back
     end
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_post
+      @post = Post.find(params[:id])
+    end
 
 end

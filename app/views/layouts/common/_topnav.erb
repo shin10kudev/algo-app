@@ -73,7 +73,7 @@
                 <% end %>
               </li>
               <li>
-                <%= link_to(likes_path) do %>
+                <%= link_to(user_likes_path) do %>
                   <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Likes (<%= current_user.likes.count %>)
                 <% end %>
               </li>

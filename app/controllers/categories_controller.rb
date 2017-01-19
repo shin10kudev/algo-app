@@ -48,7 +48,7 @@ class CategoriesController < ApplicationController
   def check_user_role
     if !current_user.admin?
       flash[:error] = "You need to be an admin to access this feature"
-      redirect_to(:back)
+      redirect_to :back
     end
   end
 

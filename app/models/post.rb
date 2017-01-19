@@ -2,8 +2,13 @@ class Post < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
   has_many :comments, dependent: :destroy
-  has_many :likes, dependent: :destroy
 
+  # Likes
+  has_many :likes, dependent: :destroy, source: :user
+  has_many :users, through: :likes
+  has_many :liked_by, through: :likes, source: :user
+
+  # Validations
   validates :title, presence: true, length: { in: 2..75 }
   validates :description, presence: true, length: { in: 2..500 }
   validates :code, presence: true
@@ -24,4 +29,8 @@ class Post < ActiveRecord::Base
       Post.where('LOWER(title) LIKE ? OR LOWER(description) LIKE ? OR LOWER(difficulty) LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%")
     end
   end
+
+  # Friendly_id
+  extend FriendlyId
+  friendly_id :title, use: [:slugged, :finders, :history]
 end
