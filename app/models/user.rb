@@ -31,4 +31,8 @@ class User < ActiveRecord::Base
   # Friendly_id
   extend FriendlyId
   friendly_id :username, use: [:finders]
+
+  def should_generate_new_friendly_id?
+    true
+  end
 end
