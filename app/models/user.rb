@@ -30,5 +30,5 @@ class User < ActiveRecord::Base
 
   # Friendly_id
   extend FriendlyId
-  friendly_id :username
+  friendly_id :username, use: [:finders]
 end

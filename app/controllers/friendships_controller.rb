@@ -1,5 +1,6 @@
 class FriendshipsController < ApplicationController
 	before_action :authenticate_user!
+  before_action :set_friend, only: [:create, :destroy]
 
   def following
     @friends = current_user.friends
@@ -10,7 +11,6 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-    @friend = User.find(params[:id])
     @friendship = current_user.friendships.build(friend_id: @friend.id)
 
   	if @friendship.save
@@ -22,7 +22,6 @@ class FriendshipsController < ApplicationController
   end
 
   def destroy
-    @friend = User.find(params[:id])
   	@friendship = current_user.friendships.find_by(friend_id: @friend.id)
 
   	if @friendship.destroy
@@ -32,4 +31,11 @@ class FriendshipsController < ApplicationController
       redirect_to :back
   	end
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_friend
+      @friend = User.find(params[:id])
+    end
+
 end

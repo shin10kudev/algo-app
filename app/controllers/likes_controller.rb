@@ -1,12 +1,12 @@
 class LikesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_post, only: [:create, :destroy]
 
   def favorites
     @likes = current_user.likes
   end
 
   def create
-    @post = Post.find(params[:id])
     @like = current_user.likes.build(post_id: @post.id)
 
   	if @like.save
@@ -18,7 +18,6 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
   	@like = current_user.likes.find_by(post_id: @post.id)
 
   	if @like.destroy
@@ -28,5 +27,11 @@ class LikesController < ApplicationController
       redirect_to :back
     end
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_post
+      @post = Post.find(params[:id])
+    end
 
 end
