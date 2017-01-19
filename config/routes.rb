@@ -4,16 +4,16 @@ Rails.application.routes.draw do
   # user routes
   devise_for :users
   resources :users, only: [:show, :index]
+  resources :notifications, only: [:index, :destroy, :update]
 
   # post routes
   resources :posts
   resources :categories
   resources :comments, only: [:create, :destroy]
 
-  # other routes
-  resources :likes, only: [:index, :create, :destroy]
-  resources :friendships, only: [:create, :destroy]
-  resources :notifications, only: [:index, :destroy, :update]
+  # like routes
+  resources :likes, only: [:create, :destroy]
+  get '/user/likes', to: 'likes#favorites'
 
   # page routes
   get '/about', to: 'pages#about'
@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   get '/privacy', to: 'pages#privacy_policy'
   get '/tos', to: 'pages#terms_of_service'
 
-  # following routes
+  # friendship routes
+  resources :friendships, only: [:create, :destroy]
   get '/user/following', to: 'friendships#following'
   get '/user/followers', to: 'friendships#followers'
 
