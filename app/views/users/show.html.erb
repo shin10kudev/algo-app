@@ -31,6 +31,10 @@
 
       <!-- search-filter -->
       <div class="search-and-filter-wrapper clearfix">
+        <% if params[:category_id] %>
+          <%= link_to 'Clear filter', user_path(@user), class: "text-center" %>
+        <% end %>
+
         <div class="pull-right">
           <span>Filter: </span>
           <%= select_tag "post-category-switcher",
@@ -42,12 +46,6 @@
 
       <%= render 'posts/posts' %>
 
-    <% end %>
-
-    <% if params[:category_id] %>
-      <div class="div text-center">
-        <%= link_to 'Clear filter', user_path(@user) %>
-      </div>
     <% end %>
 
     <div class="pagination-wrapper">
