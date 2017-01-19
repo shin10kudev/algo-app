@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <% if signed_in? && @post.user_id != current_user.id && current_user.likes.where(post_id: @post.id).empty? %>
       <div class="pull-right">
-        <%= link_to "Like", likes_path(post_id: @post.id), method: :post, class: "btn btn-info btn-sm" %>
+        <%= link_to "Like", likes_path(id: @post.id), method: :post, class: "btn btn-info btn-sm" %>
       </div>
       <% elsif signed_in? && @post.user_id != current_user.id %>
       <div class="pull-right">
@@ -31,31 +31,27 @@
 
     <h1><%= @post.title %></h1>
 
-    <span class="label label-default">
-      Likes <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <%= @post.likes.count %>
-    </span>
-    <a href="#comments">
-    <span class="label label-default">
-      Comments <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> <%= @post.comments.count %>
-    </span>
-    </a>
-    <h5>Posted by:
-      <%= link_to(user_path(@post.user_id)) do %>
-        <%= @post.user.username %>
+    <p><%= link_to @post.user.username, user_path(@post.user) %><span class="mid-dot-divider"></span><em><%= @post.created_at.strftime("%b %d, %Y") %></em></p>
+
+    <p><%= @post.description %></p>
+
+    <div class="tags-bar" style="margin-bottom: 20px">
+      <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>&nbsp;
+      <% unless @post.category.nil? %>
+        <%= link_to @post.category.name, posts_path(category_id: @post.category.id), class: "label label-inverted" %>
       <% end %>
-    </h5>
-    <h5>Created on: <%= @post.created_at.to_formatted_s(:long_ordinal)  %></h5>
-    <h5>Difficulty level: <a href="/posts?&search=<%= @post.difficulty %>"><span class="label label-primary"><%= @post.difficulty %></span></a></h5>
+      <%= link_to @post.difficulty, posts_path(difficulty_level: @post.difficulty), class: "label label-inverted" %>
+    </div>
 
-    <% unless @post.category.nil? %>
-      <h5>Category: <a href="/posts?&search=<%= @post.category %>"><span class="label label-primary"><%= @post.category.name %></span></a></h5>
-    <% end %>
-
-    <p>Description: <%= @post.description %></p>
   </div>
 </div>
 
 <%= render 'editor' %>
+
+<div class="likes">
+  <a href="#comments"><%= pluralize(@post.comments.count, 'response') %></a>
+  <span class="likes-count"><%= pluralize(@post.likes.count, 'like') %></span>
+</div>
 
 <div class="row margin-top-20">
   <a name="comments"></a>

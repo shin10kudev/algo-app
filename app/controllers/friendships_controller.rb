@@ -10,28 +10,26 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-    @user = User.find(params[:friend_id])
-
-    @friendship = current_user.friendships.build(friend_id: params[:friend_id])
+    @friend = User.find(params[:id])
+    @friendship = current_user.friendships.build(friend_id: @friend.id)
 
   	if @friendship.save
-      @note = @user.notifications.build(path: "users/#{current_user.id}", action: "followed you", originator_id: current_user.id, reference_id: current_user.id)
-      @note.save
-  		redirect_to(:back)
+      redirect_to :back
   	else
       flash[:alert] = "Oops! Something went wrong... Please try again."
-      redirect_to(:back)
+      redirect_to :back
   	end
   end
 
   def destroy
-  	@friendship = current_user.friendships.find_by(friend_id: params[:id])
+    @friend = User.find(params[:id])
+  	@friendship = current_user.friendships.find_by(friend_id: @friend.id)
 
   	if @friendship.destroy
-  		redirect_to(:back)
+  		redirect_to :back
   	else
       flash[:alert] = "Oops! Something went wrong... Please try again."
-      redirect_to(:back)
+      redirect_to :back
   	end
   end
 end

@@ -8,16 +8,16 @@ class NotificationsController < ApplicationController
   def update
   	@note = current_user.notifications.find(params[:id])
   	@note.update(viewed: true)
-  	redirect_to(:back)
+  	redirect_to :back
   end
 
 	def destroy
 		@note = current_user.notifications.find_by(note_params)
 		if @note.destroy
-		 redirect_to(:back)
+		 redirect_to :back
 	  else
       flash[:alert] = "Oops! Something went wrong... Please try again."
-      redirect_to(:back)
+      redirect_to :back
 	  end
 	end
 

@@ -19,6 +19,15 @@
 //= require ace/theme-monokai
 //= require ace/mode-javascript
 
+// Timeout for alerts (auto fadeout)
+$(document).ready(function() {
+  setTimeout(function() {
+    $('.alert').slideUp('slow', function() {
+      $(this).remove();
+    })
+  }, 3000);
+});
+
 // Data confirm modal interactions
 $(document).on('ready', function () {
   var $confirmationModal = $("[data-confirm-modal]");

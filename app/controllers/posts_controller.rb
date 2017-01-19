@@ -27,13 +27,13 @@ class PostsController < ApplicationController
 
   def show
     @comments = @post.comments
+    if request.path != post_path(@post)
+      redirect_to @post, status: :moved_permanently
+    end
   end
 
   def new
     @post = Post.new
-  end
-
-  def edit
   end
 
   def create
@@ -48,12 +48,16 @@ class PostsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   def update
+    @post.slug = nil
     if @post.update(post_params)
       redirect_to @post, notice: "Your algorithm was updated!"
     else
       flash[:error] = "Oops! Something went wrong... Please try again."
-      render 'new'
+      render 'edit'
     end
   end
 
@@ -62,8 +66,8 @@ class PostsController < ApplicationController
       flash[:notice] = "Your algorithm was deleted!"
       redirect_to user_path(current_user)
     else
-      redirect_to(:back)
       flash[:error] = "Oops! Something went wrong... Please try again."
+      redirect_to :back
     end
   end
 

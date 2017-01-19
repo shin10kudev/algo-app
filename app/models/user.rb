@@ -2,17 +2,23 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # allows you to use User.admin?
-  enum role: [ :general, :admin ]
-
+  # validations
   validates :username, presence: true, length: { in: 2..30 }
   validates_uniqueness_of :username
 
+  # allows you to use User.admin?
+  enum role: [ :general, :admin ]
+
+  # Posts and comments
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :likes, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
+  # Likes
+  has_many :likes, dependent: :destroy, source: :post
+  has_many :liked, through: :likes, source: :post
+
+  # Friendships
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
 

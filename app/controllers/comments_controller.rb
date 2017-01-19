@@ -10,14 +10,14 @@ class CommentsController < ApplicationController
       if @post.user_id != current_user.id
         @note = @user.notifications.build(path: "posts/#{@post.id}/#comments", action: "commented on your post '#{@post.title}'", originator_id: current_user.id, reference_id: @post.id)
         @note.save
-        redirect_to(:back)
+        redirect_to :back
         flash[:notice] = "Comment added!"
       else
-      redirect_to(:back)
+      redirect_to :back
       flash[:notice] = "Comment added!"
     end
     else
-      redirect_to(:back)
+      redirect_to :back
     end
   end
 
@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
       flash[:notice] = "Comment deleted!"
       redirect_to "/posts/#{@comment.post_id}"
     else
-      redirect_to(:back)
+      redirect_to :back
       flash[:alert] = "You cannot delete this comment."
     end
   end
