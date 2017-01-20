@@ -1,18 +1,17 @@
 class NotificationsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_note, only: [:update, :destroy]
 
   def index
-  	@notes = current_user.notifications.limit(25).order(created_at: "DESC")
+  	@notes = current_user.notifications.order(created_at: "DESC").page(params[:page])
   end
 
   def update
-  	@note = current_user.notifications.find(params[:id])
   	@note.update(viewed: true)
   	redirect_to :back
   end
 
 	def destroy
-		@note = current_user.notifications.find_by(note_params)
 		if @note.destroy
 		 redirect_to :back
 	  else
@@ -21,8 +20,8 @@ class NotificationsController < ApplicationController
 	  end
 	end
 
-	private
-    def note_params
-    	params.require(:note).permit(:id)
+  private
+    def set_note
+      @note = current_user.notifications.find_by(params[:id])
     end
 end

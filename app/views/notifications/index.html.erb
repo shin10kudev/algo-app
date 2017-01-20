@@ -1,37 +1,51 @@
 <div class="col-md-12">
-	<h1>Notification History</h1>
+	<h1>Notifications</h1>
 
 	<% if @notes.length < 1 %>
-		<p>You don't have any notifications currently...</p>
+		<p>You don't have any notifications</p>
 	<% else %>
-		<ul class="list-group">
-			<% @notes.each do |note| %>
-		  	<% @user = User.find(note.originator_id) %>
-		  	<% if note.viewed == false
-            @class = "unchecked"
-          else
-            @class = "checked"
-          end
-        %>
-			  <li class="list-group-item <%= @class %>">
-					<a href="/<%= note.path %>">
-            <%= image_tag @user.image.url(:medium), class: "img-circle img-xs", alt: "user image" %>
-					  <b><%= @user.username %></b> <%= note.action %> <i><%= time_ago_in_words(note.created_at) %> ago. </i>
-					</a>
-					<form action="/notifications/<%= note.id %>" method="POST" class="notifications-inline">
-	          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-	          <input type="hidden" name="note[id]" value="<%= note.id %>" >
-	          <input type="hidden" name="_method" value="delete">
-	          <button class="btn btn-link" data-disable-with="Processing">Delete</button>
-	        </form>
-          <form action="/notifications/<%= note.id %>" method="POST" class="notifications-inline">
-	          <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-	          <input type="hidden" name="_method" value="put">
-	          <button type="submit" class="btn btn-link" data-toggle="tooltip" data-placement="top" title="Mark as read">Mark as Read</button>
-        </form>
-			  </li>
-			<% end %>
-		</ul>
-	<% end %>
+		<% @notes.each do |note| %>
+	  	<% @user = User.find(note.originator_id)
+	  	   @class = note.viewed ? 'unchecked' : 'checked'
+      %>
+		  <div class="panel panel-default <%= @class %>">
+        <div class="panel-body clearfix">
 
+          <!-- notification-actions -->
+          <div class="pull-right">
+            <div class="dropdown">
+              <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-link">
+                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+              </button>
+              <ul class="dropdown-menu pull-right" aria-labelledby="dLabel">
+                <li><%= link_to "Mark as read", notification_path(note), method: :put %></li>
+                <li role="separator" class="divider"></li>
+                <li><%= link_to "Delete", notification_path(note), method: :delete %></li>
+              </ul>
+            </div>
+          </div>
+          <!-- //notification-actions -->
+
+          <!-- notification -->
+          <div class="media no-margin-top">
+            <div class="media-left">
+              <%= link_to(user_path(@user)) do %>
+                <%= image_tag @user.image.url(:thumb), class: "media-object img-circle", alt: "user image" %>
+              <% end %>
+            </div>
+            <div class="media-right media-middle">
+              <div><b><%= link_to @user.username, user_path(@user) %></b> <a href="/<%= note.path %>"><%= note.action %></a></div>
+              <span class="text-muted"><%= time_ago_in_words(note.created_at) %> ago</span>
+            </div>
+          </div>
+          <!-- //notification -->
+
+        </div>
+		  </div>
+		<% end %>
+	<% end %>
+</div>
+
+<div class="pagination-wrapper">
+  <%= paginate @notes %>
 </div>
