@@ -1,58 +1,82 @@
 <div class="row">
-  <div class="col-md-12">
-    <% if signed_in? && @post.user_id != current_user.id && current_user.likes.where(post_id: @post.id).empty? %>
-      <div class="pull-right">
-        <%= link_to "Like", likes_path(id: @post.id), method: :post, class: "btn btn-info btn-sm" %>
-      </div>
-      <% elsif signed_in? && @post.user_id != current_user.id %>
-      <div class="pull-right">
-        <%= link_to "Unlike", like_path, method: :delete, class: "btn btn-warning btn-sm" %>
-      </div>
-    <% end %>
+  <div class="col-sm-12">
 
-    <!-- post-actions -->
-    <% if has_permissions(@post.user_id) %>
-      <div class="pull-right">
-        <div class="dropdown">
-          <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-link">
-            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-          </button>
-          <ul class="dropdown-menu pull-right" aria-labelledby="dLabel">
-            <li><%= link_to "Edit post", edit_post_path(@post) %></li>
-            <li role="separator" class="divider"></li>
-            <li>
-              <a data-confirm-modal data-id="<%= @post.id %>" data-title="<%= @post.title %>" data-toggle="modal" data-target="#confirm-destroy-modal">Delete</a>
-            </li>
-          </ul>
+   <div class="post-wrapper">
+    <div class="post-wrapper-inner">
+      <!-- post-actions -->
+      <% if has_permissions(@post.user_id) %>
+        <div class="pull-right">
+          <div class="dropdown">
+            <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-link">
+              <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+            </button>
+            <ul class="dropdown-menu pull-right" aria-labelledby="dLabel">
+              <li><%= link_to "Edit post", edit_post_path(@post) %></li>
+              <li role="separator" class="divider"></li>
+              <li>
+                <a data-confirm-modal data-id="<%= @post.id %>" data-title="<%= @post.title %>" data-toggle="modal" data-target="#confirm-destroy-modal">Delete</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    <% end %>
-    <!-- //post-actions -->
-
-    <h1><%= @post.title %></h1>
-
-    <p><%= link_to @post.user.username, user_path(@post.user) %><span class="mid-dot-divider"></span><em><%= @post.created_at.strftime("%b %d, %Y") %></em></p>
-
-    <p><%= @post.description %></p>
-
-    <div class="tags-bar" style="margin-bottom: 20px">
-      <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>&nbsp;
-      <% unless @post.category.nil? %>
-        <%= link_to @post.category.name, posts_path(category_id: @post.category.id), class: "label label-inverted" %>
       <% end %>
-      <%= link_to @post.difficulty, posts_path(difficulty_level: @post.difficulty), class: "label label-inverted" %>
-    </div>
+      <!-- //post-actions -->
 
-  </div>
-</div>
+        <!-- post-info -->
+        <div class="post-author-info">
+          <div class="media-left">
+            <%= link_to(user_path(@post.user)) do %>
+              <%= image_tag @post.user.image.url(:thumb), class: "media-object user-image img-circle", alt: "user image" %>
+            <% end %>
+          </div>
+          <div class="media-body">
+            <p><%= link_to @post.user.username, user_path(@post.user) %></p>
+            <p class="post-meta">Last Updated: <%= @post.updated_at.strftime("%b %d, %Y") %></p>
+          </div>
+        </div>
 
-<%= render 'editor' %>
+        <div class="post-info text-center">
+          <h1 class="post-title"><%= @post.title %></h1>
+          <div class="tags-bar" style="margin-bottom: 10px">
+            <% unless @post.category.nil? %>
+              <%= link_to @post.category.name, posts_path(category_id: @post.category.id), class: "label label-inverted" %>
+            <% end %>
+            <%= link_to @post.difficulty, posts_path(difficulty_level: @post.difficulty), class: "label label-inverted" %>
+          </div>
 
-<div class="likes">
-  <a href="#comments"><%= pluralize(@post.comments.count, 'response') %></a>
-  <span class="likes-count"><%= pluralize(@post.likes.count, 'like') %></span>
-</div>
+          <p class="post-description text-left"><%= @post.description %></p>
+        </div>
 
+        <!-- //post-info -->
+
+        <%= render 'editor' %>
+
+        <!-- post-actions -->
+        <div class="post-actions-bar">
+          <h3 class="creator-title"><strong>Written by <%= link_to @post.user.username, user_path(@post.user) %></strong></h3>
+
+          <% if signed_in? current_user.likes.where(post_id: @post.id).empty? %>
+            <%= link_to(likes_path(id: @post.id), method: :post, class: "btn btn-default btn-sm", title: "Like post") do %>
+              <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> <span class="likes-count"><%= pluralize(@post.likes.count, 'Like') %></span>
+            <% end %>
+          <% elsif signed_in? %>
+            <%= link_to(like_path, method: :delete, class: "btn btn-default btn-sm", title: "Unlike post") do %>
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> <span class="likes-count"><%= pluralize(@post.likes.count, 'Like') %></span>
+            <% end %>
+          <% end %>
+
+          <div class="pull-right">
+            <a href="#comments"><%= pluralize(@post.comments.count, 'Response') %></a>
+          </div>
+        </div>
+        <!-- //post-actions -->
+
+      </div><!-- //post-wrapper-inner -->
+    </div><!-- //post-wrapper -->
+  </div><!-- //colum -->
+</div><!-- //row -->
+
+<!-- comments -->
 <div class="row margin-top-20">
   <a name="comments"></a>
   <div class="col-md-12">
@@ -69,7 +93,7 @@
         <% else %>
           <a href="/users/<%= comment.user_id %>">
         <% end %>
-          <%= image_tag comment.user.image.url(:small), class: "media-object img-circle", id: "post-user-img", alt: "user image" %>
+          <%= image_tag comment.user.image.url(:thumb), class: "media-object img-circle", id: "post-user-img", alt: "user image" %>
         </a>
       </div>
       <div class="media-body">
@@ -96,5 +120,6 @@
     </form>
   </div>
 </div>
+<!-- //comments -->
 
 <%= render 'remove_post_confirmation_modal' %>

@@ -1,0 +1,27 @@
+// Post show styles
+
+.post-title {
+  font-size: 30px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.post-author-info {
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.post-description {
+  padding: 10px 0 5px;
+}
+
+.post-actions-bar {
+  padding: 10px 0 5px;
+
+  .creator-title {
+    font-size: 18px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.0785);
+  }
+}

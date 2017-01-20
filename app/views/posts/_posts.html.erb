@@ -4,7 +4,7 @@
     <div class="post-wrapper-inner">
 
       <div class="action-items-bar">
-        <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>&nbsp;
+        <span class="glyphicon glyphicon-tag v-align" aria-hidden="true"></span>&nbsp;
         <% unless post.category.nil? %>
           <%= link_to post.category.name, posts_path(category_id: post.category.id), class: "label label-inverted" %>
         <% end %>

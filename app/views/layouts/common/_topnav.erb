@@ -17,10 +17,10 @@
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
           <li>
-            <%= link_to "New Post", new_post_path %>
+            <%= link_to "New Post", new_post_path, title: "Create a new post" %>
           </li>
           <li>
-            <%= link_to(user_path(current_user), class: "user-link") do %>
+            <%= link_to(user_path(current_user), class: "user-link", title: "Profile") do %>
               <%= image_tag current_user.image.url(:medium), class: "user-image img-circle", alt: "user image" %>
               <%= current_user.username %>
             <% end %>
@@ -29,7 +29,7 @@
                @count = @notifications.where(viewed: false).count
             %>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-envelope" aria-hidden="true"><% if @count > 0 %><span class="badge"><%= @count %></span><% end %></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Notifications"><span class="glyphicon glyphicon-envelope" aria-hidden="true"><% if @count > 0 %><span class="badge"><%= @count %></span><% end %></span></a>
             <ul class="dropdown-menu notifications-dropdown" role="menu">
               <% @notifications.each do |notification| %>
                 <% @user = User.find(notification.originator_id) %>
