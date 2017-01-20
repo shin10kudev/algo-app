@@ -1,11 +1,11 @@
 // Global styles
 
 body {
-  background-color: $body-background-color;
-  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  font-family: $global-font-family;
+  background-color: $body-background-color;
   color: $global-font-color;
+  font-family: $global-font-family;
+  text-rendering: optimizeLegibility;
 }
 
 .site-container {
@@ -38,10 +38,10 @@ body {
 }
 
 .catelog-preview-header {
-  margin: 0 30px 0 20px;
-  padding-top: 8px;
-  padding-bottom: 8px;
   border-bottom: 1px solid rgba($pure-black, 0.0785);
+  margin: 0 30px 0 20px;
+  padding-bottom: 8px;
+  padding-top: 8px;
 
   .catelog-preview-name {
     color: rgba($pure-black, 0.8);
@@ -64,9 +64,9 @@ body {
   }
 
   .preview-item-meta {
-    margin-bottom: 0;
-    font-size: 14px;
     color: rgba($pure-black, 0.44);
+    font-size: 14px;
+    margin-bottom: 0;
   }
 }
 
@@ -80,13 +80,15 @@ body {
 }
 
 .label.label-inverted {
-  color: $global-font-color;
   background-color: $white;
   border: 1px solid #f0f0f0;
+  color: $global-font-color;
 
-  &:hover {
-    border-color: $dark-gray;
+  &:hover,
+  &:active,
+  &:focus {
     background-color: $white;
+    border-color: $dark-gray;
     color: $global-font-color;
   }
 }

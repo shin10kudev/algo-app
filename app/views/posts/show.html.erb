@@ -37,7 +37,7 @@
 
         <div class="post-info text-center">
           <h1 class="post-title"><%= @post.title %></h1>
-          <div class="tags-bar" style="margin-bottom: 10px">
+          <div class="tags-bar">
             <% unless @post.category.nil? %>
               <%= link_to @post.category.name, posts_path(category_id: @post.category.id), class: "label label-inverted" %>
             <% end %>
