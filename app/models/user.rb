@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   # validations
   validates :username, presence: true, length: { in: 2..30 }
   validates_uniqueness_of :username
+  validates :bio,  length: { maximum: 250 }
 
   # allows you to use User.admin?
   enum role: [ :general, :admin ]
