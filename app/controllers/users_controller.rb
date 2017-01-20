@@ -12,4 +12,5 @@ class UsersController < ApplicationController
       @posts = @posts.where(category_id: params[:category_id]).page(params[:page]).per(15)
     end
   end
+
 end

@@ -7,3 +7,11 @@ h1, h2, h3, h4, h5, h6, p, ul {
 p {
   font-size: 16px;
 }
+
+.danger {
+  color: $danger-color;
+}
+
+.succes {
+  color: $success-color;
+}

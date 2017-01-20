@@ -1,15 +1,15 @@
 <div class="row">
-  <div class="col-md-2">
+  <div class="col-md-3 col-lg-2">
     <div class="profile-wrapper text-center">
       <div class="profile-image">
         <%= link_to(user_path(@user)) do %>
-          <%= image_tag @user.image.url(:small), class: "media-object img-circle", alt: "user image" %>
+          <%= image_tag @user.image.url(:small), class: "img-circle", alt: "user image" %>
         <% end %>
       </div>
       <div class="profile-details">
-        <h3><%= @user.username %></h3>
-        <p>Member since: <%= @user.created_at.strftime("%B %d, %Y") %></p>
-        <p>Followers: <%= @user.inverse_friendships.count %></p>
+        <h3><b><%= @user.username %></b></h3>
+        <p><%= @user.bio %></p>
+        <p><b><%= @user.inverse_friendships.count %></b> Followers</p>
       </div>
       <div class="profile-actions">
         <!-- FOLLOWING -->
@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <div class="col-md-10">
+  <div class="col-md-9 col-lg-10">
 
     <% if @posts.empty? %>
       <em><%= empty_state_text(@user) %></em>
