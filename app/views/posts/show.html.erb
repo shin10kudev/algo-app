@@ -55,7 +55,7 @@
         <div class="post-actions-bar">
           <h3 class="creator-title"><strong>Written by <%= link_to @post.user.username, user_path(@post.user) %></strong></h3>
 
-          <% if signed_in? current_user.likes.where(post_id: @post.id).empty? %>
+          <% if signed_in? && current_user.likes.where(post_id: @post.id).empty? %>
             <%= link_to(likes_path(id: @post.id), method: :post, class: "btn btn-default btn-sm", title: "Like post") do %>
               <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> <span class="likes-count"><%= pluralize(@post.likes.count, 'Like') %></span>
             <% end %>
