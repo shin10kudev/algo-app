@@ -14,7 +14,7 @@ $ rbenv install 2.3.1
 $ rbenv local 2.3.1
 ```
 
--Install bundler and run bundle install:
+-From `algo-app` project root, install bundler and run bundle install:
 ```
 $ gem install bundler
 $ bundle install
@@ -26,12 +26,12 @@ $ brew update
 $ brew install imagemagick
 ```
 
-- Database creation run:
+-Database creation run:
 ```
 bundle exec rake db:migrate:reset`
 ```
 
-## Start server
+-Start server
 ```
 $ rails s
 ```
