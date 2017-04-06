@@ -22,6 +22,3 @@ public/system/
 /log/*
 !/log/.keep
 /tmp
-
-# Secrets
-config/secrets.yml
