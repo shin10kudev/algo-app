@@ -4,28 +4,34 @@
 
 ## Setup
 
--Install [homebrew](https://brew.sh/)
+-Install [homebrew](https://brew.sh/) package manager if you don't have it installed already.
 
--Install [rbenv](https://github.com/rbenv/rbenv#homebrew-on-mac-os-x) via homebrew.
+-Install [rbenv](https://github.com/rbenv/rbenv#homebrew-on-mac-os-x) via homebrew to manage ruby versions.
 
+-Install ruby version 2.3.1 using rbenv:
 ```
 $ rbenv install 2.3.1
 $ rbenv local 2.3.1
+```
+
+-Install bundler and run bundle install:
+```
 $ gem install bundler
 $ bundle install
+```
 
 -Install imagemagik
-
 ```
 $ brew update
 $ brew install imagemagick
 ```
 
-- Database creation
-  - `bundle exec rake db:migrate:reset`
+- Database creation run:
+```
+bundle exec rake db:migrate:reset`
+```
 
 ## Start server
-
 ```
 $ rails s
 ```
