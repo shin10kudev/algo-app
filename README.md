@@ -26,9 +26,10 @@ $ brew update
 $ brew install imagemagick
 ```
 
--Database creation run:
+-Database creation, run:
 ```
-bundle exec rake db:migrate:reset`
+$ bundle exec rake db:migrate
+$ bundle exec rake db:seed
 ```
 
 -Start server

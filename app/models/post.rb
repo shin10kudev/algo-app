@@ -17,10 +17,10 @@ class Post < ActiveRecord::Base
     presence: true,
     inclusion: { in: [ 'Easy', 'Medium', 'Hard' ],
     message: "%{value} is not a valid difficulty level" }
-  validates :category_id,
-    presence: true,
-    inclusion: { in: Category.all.map{ |category| category.id },
-    message: "%{value} is not a valid category" }
+  # validates :category_id,
+    # presence: true,
+    # inclusion: { in: Category.all.map{ |category| category.id },
+    # message: "%{value} is not a valid category" }
 
   # perform search on Posts
   def self.search(search)
