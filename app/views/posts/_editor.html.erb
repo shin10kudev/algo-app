@@ -12,6 +12,7 @@
 			  editor.setHighlightActiveLine(false);
 			  editor.setShowPrintMargin(false);
 			  editor.getSession().setUseWrapMode(true);
+              editor.setOptions({maxLines: 100});
 
 				editor.getSession().on('change', function(e) {
 	    		code = editor.getSession().getValue();
